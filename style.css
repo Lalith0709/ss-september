@@ -1,5 +1,5 @@
 body {
-  background: linear-gradient(to bottom, #ffe6f0, #ffccf2);
+  background: linear-gradient(to bottom, #f797d1c7, #ffccf2);
   margin: 0;
   overflow: hidden;
   font-family: 'Comic Sans MS', cursive;
@@ -37,7 +37,7 @@ body {
   top: 40%;
   transform: translate(-50%, -50%) scale(0);
   background: transparent;
-  border: 4px dotted #ff69b4;
+  border: 4px dotted #fe2190;
   border-radius: 50%;
   animation: none;
 }
@@ -47,14 +47,14 @@ body {
   top: 15%;
   left: 50%;
   transform: translateX(-50%);
-  background: white;
+  background: rgb(243, 156, 224);
   border-radius: 20px;
   padding: 20px;
   width: 80%;
   max-width: 500px;
-  box-shadow: 0px 0px 20px rgba(255, 105, 180, 0.6);
+  box-shadow: 0px 0px 20px rgba(249, 140, 189, 0.6);
   font-size: 1.1em;
-  color: #d63384;
+  color: #ef2390;
   animation: fadeIn 1.5s ease-in-out;
 }
 
