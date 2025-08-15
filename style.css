@@ -1,91 +1,166 @@
-:root{
-  --bg1:#ffe7f1;
-  --bg2:#ffdff0;
-  --card:#fff7fb;
-  --ink:#7a0066;
-  --ink2:#9a308c;
-  --accent1:#ff6ad5;
-  --accent2:#8b5cf6;
-  --ring:#f5c6e9;
-  --shadow: 0 14px 36px rgba(190, 30, 140, .17);
-  --radius: 24px;
+/* -----------------------------
+   General body and layout
+----------------------------- */
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: #f0e6f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
 }
 
-*{ box-sizing:border-box; }
-html,body{ height:100%; margin:0; }
-body{
-  font-family:'Poppins',system-ui,Segoe UI,Roboto,Arial,sans-serif;
-  color:var(--ink);
-  background: radial-gradient(1200px 800px at 20% -10%, #fff6fb 0%, var(--bg1) 40%, var(--bg2) 100%);
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  overflow-x:hidden;
+/* -----------------------------
+   Overlay styling
+----------------------------- */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(240,230,246,0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
 }
 
-/* FX Canvas */
-#fxCanvas {
-  position:fixed;
-  inset:0;
-  width:100%;
-  height:100%;
-  z-index:0;
-  pointer-events:none;
+.hidden { display: none; }
+
+/* Pre-countdown message box */
+.message-box {
+  background: #fff;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-/* Main wrapper */
-.wrap{
-  min-height:100dvh;
-  display:grid;
-  place-items:center;
-  padding:40px 16px;
-  position:relative;
-  z-index:1;
+/* -----------------------------
+   Countdown container
+----------------------------- */
+#countdown-container {
+  position: relative;
+  width: 450px;
+  height: 350px;
 }
 
-/* Card */
-.card{
-  width:min(920px, 94vw);
-  background:var(--card);
-  border:2px solid var(--ring);
-  border-radius: calc(var(--radius) + 8px);
-  padding:28px 22px 30px;
-  box-shadow: var(--shadow);
-  position:relative;
-  z-index:2;
+/* Confetti and fireworks canvas positioning */
+#confetti, #fireworks {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
 }
-.title{ font-family:'Pacifico',cursive; text-align:center; color:#cc0077; font-size:clamp(26px,4.5vw,36px); margin:0 0 18px; }
 
-/* counters */
-.counter-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; width:min(820px,92%); margin:0 auto 18px; }
-.unit,.counter{ background:#fff; border:2px solid #f4d1f0; border-radius:20px; padding:14px 12px; text-align:center; box-shadow:0 8px 18px rgba(128,0,96,.07); }
-.num{ font-size:clamp(28px,6.6vw,44px); font-weight:800; color:#8a00a3; }
-.label{ margin-top:6px; font-size:14px; color:#b45aa8; }
+/* Countdown box and wrappers */
+#countdown-box-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
 
-/* quote */
-.quote{ width:min(760px,90%); margin:8px auto 12px; background:#fff; border:2px solid #f4d1f0; border-radius:22px; padding:14px; text-align:center; box-shadow:0 10px 24px rgba(190,30,140,.10); color:#7e1a72; }
+#countdown-box {
+  position: relative;
+  z-index: 10;
+  background: #fff;
+  border-radius: 20px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
 
-/* decorative floaters */
-.floaters{ position:fixed; inset:0; margin:0; padding:0; list-style:none; overflow:hidden; pointer-events:none; z-index:0; }
-.floaters li{ position:absolute; bottom:-80px; width:14px; height:14px; background:rgba(255,255,255,.9); border:2px solid #ffd5ee; border-radius:50%; animation:rise linear infinite; filter: drop-shadow(0 6px 12px rgba(190,30,140,.08)); }
-.floaters li:nth-child(2n){ transform:rotate(45deg); border-radius:6px; }
-@keyframes rise{ from{ transform:translateY(0) } to{ transform:translateY(-110vh) } }
+/* Countdown numbers */
+.countdown-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+}
 
-/* extra sections (surprise/gift/custom) */
-.extra{ width:min(920px,94vw); margin-top:18px; display:grid; gap:12px; z-index:2; }
-.extra article{ background:#fff; border:2px solid #f4d1f0; border-radius:16px; padding:12px 14px; box-shadow:0 8px 20px rgba(128,0,96,0.06); }
+.countdown-item {
+  flex: 1;
+  text-align: center;
+}
 
-/* Celebration overlay */
-.celebration{ position:fixed; inset:0; display:grid; place-items:center; background: radial-gradient(1000px 700px at 80% 110%, #fff6fb 0%, var(--bg1) 40%, var(--bg2) 100%); z-index:10; }
-.celebration[hidden]{ display:none; }
-.cat-bg{ position:absolute; inset:0; z-index:0; background-image:url("https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif"); background-repeat:repeat; background-size:220px 220px; opacity:.14; pointer-events:none; }
+.countdown-item span {
+  font-size: 2.2em;
+  font-weight: bold;
+  display: block;
+}
 
-/* celebration inner */
-.celebration-inner{ position:relative; z-index:2; width:min(900px,92vw); background:rgba(255,247,251,.94); border:2px solid var(--ring); border-radius:28px; padding:28px 20px 32px; text-align:center; box-shadow:var(--shadow); }
-.cele-title{ margin:0 0 8px; font-family:'Pacifico',cursive; font-size:clamp(28px,6vw,56px); color:#cc0077; }
-.cele-sub{ margin:0; color:#7e1a72; font-size:clamp(14px,2.6vw,20px); }
+.countdown-item small {
+  font-size: 0.9em;
+  color: #555;
+}
 
-/* responsive */
-@media (max-width:560px){
-  .counter-row{ grid-template-columns: repeat(2, minmax(0,1fr)); gap:12px; }
-  .card{ padding:20px 14px; }
+/* Extra animation placeholders */
+#fake-animation, #extra-animation-wrapper {
+  margin-top: 15px;
+}
+
+.extra-animation-item {
+  width: 20px;
+  height: 20px;
+  background: #ff7f50;
+  display: inline-block;
+  margin: 0 5px;
+  border-radius: 50%;
+}
+
+/* -----------------------------
+   Post-countdown pages
+----------------------------- */
+#post-pages {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(240,230,246,0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 60;
+}
+
+.page-wrapper {
+  text-align: center;
+}
+
+.page {
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px 25px;
+  font-size: 1em;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  background: #ff7f50;
+  color: #fff;
+}
+
+/* -----------------------------
+   Old hidden elements / cards
+----------------------------- */
+#old-hidden-elements {
+  display: none; /* hidden until triggered */
+}
+
+.old-card {
+  width: 80px;
+  height: 120px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  margin: 5px;
+  display: inline-block;
 }

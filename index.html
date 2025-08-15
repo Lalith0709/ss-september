@@ -1,80 +1,97 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Happy 18th — Srujana</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>18th Birthday Surprise</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- FX canvas handles confetti, rocket, heart, fireworks -->
-  <canvas id="fxCanvas" aria-hidden="true"></canvas>
 
-  <main class="wrap" id="countdownScreen">
-    <section class="card">
-      <h1 class="title">Counting down to your day <span>💕</span></h1>
-
-      <div class="counter-row" aria-live="polite">
-        <div class="counter unit">
-          <div id="days" class="num">0</div>
-          <div class="label">Days</div>
-        </div>
-        <div class="counter unit">
-          <div id="hours" class="num">00</div>
-          <div class="label">Hours</div>
-        </div>
-        <div class="counter unit">
-          <div id="minutes" class="num">00</div>
-          <div class="label">Minutes</div>
-        </div>
-        <div class="counter unit">
-          <div id="seconds" class="num">00</div>
-          <div class="label">Seconds</div>
-        </div>
-      </div>
-
-      <div class="quote">
-        <p id="quoteText">Just a little more… A small gift for my favorite person ❤️</p>
-      </div>
-
-      <p id="statusLine" class="status soft">Real countdown running…</p>
-    </section>
-
-    <!-- Decorative floating shapes behind card -->
-    <ul class="floaters" aria-hidden="true">
-      <li></li><li></li><li></li><li></li><li></li>
-      <li></li><li></li><li></li><li></li><li></li>
-    </ul>
-
-    <!-- Surprise / gift / custom message sections (intact) -->
-    <section class="extra">
-      <article class="surprise-card">
-        <h2>🎁 Surprise Card</h2>
-        <p id="surpriseText">A special surprise for Srujana — love you! 💖</p>
-      </article>
-
-      <article class="gift-card">
-        <h2>🎀 Gift Card</h2>
-        <p id="giftText">Gift: A wonderful year ahead — enjoy every moment.</p>
-      </article>
-
-      <article class="custom-message">
-        <h2>💌 Custom Message</h2>
-        <p id="customText">To Srujana — your 18th is the start of a beautiful chapter.</p>
-      </article>
-    </section>
-  </main>
-
-  <!-- Celebration overlay (shows after finale trigger) -->
-  <section id="celebrationScreen" class="celebration" hidden>
-    <div class="cat-bg" aria-hidden="true"></div>
-
-    <div class="celebration-inner">
-      <h2 class="cele-title">🎉 Happy 18th Birthday, Srujana! 🎉</h2>
-      <p class="cele-sub">Wishing you a year full of love, laughter and magic ✨</p>
+  <!-- Pre-countdown custom message overlay -->
+  <div id="pre-message" class="overlay">
+    <div class="message-box">
+      <h1>🎉 Get Ready for a Special Birthday! 🎉</h1>
+      <p>This is your custom message before the countdown begins.</p>
+      <button id="startCountdown">Start Countdown</button>
     </div>
-  </section>
+  </div>
 
+  <!-- Countdown Container -->
+  <div id="countdown-container">
+    <!-- Confetti canvas over the countdown box -->
+    <canvas id="confetti"></canvas>
+
+    <!-- Fireworks canvas for background celebrations -->
+    <canvas id="fireworks"></canvas>
+
+    <!-- Countdown Box Wrapper -->
+    <div id="countdown-box-wrapper">
+      <div id="countdown-box">
+        <h1>🎂 Your 18th Birthday 🎂</h1>
+
+        <!-- Countdown numbers wrapper -->
+        <div class="countdown-wrapper">
+          <div class="countdown-item">
+            <span id="days">0</span>
+            <small>Days</small>
+          </div>
+          <div class="countdown-item">
+            <span id="hours">0</span>
+            <small>Hours</small>
+          </div>
+          <div class="countdown-item">
+            <span id="minutes">0</span>
+            <small>Minutes</small>
+          </div>
+          <div class="countdown-item">
+            <span id="seconds">0</span>
+            <small>Seconds</small>
+          </div>
+        </div>
+
+        <!-- Placeholder for fake countdown animation or extra messages -->
+        <div id="fake-animation"></div>
+
+        <!-- Extra wrapper for old animation logic -->
+        <div id="extra-animation-wrapper">
+          <div class="extra-animation-item"></div>
+          <div class="extra-animation-item"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post-countdown hidden surprise pages -->
+  <div id="post-pages" class="overlay hidden">
+    <div class="page-wrapper">
+      <div class="page" id="page1">
+        <h2>🎁 Surprise Gift 1</h2>
+        <p>Your first hidden surprise!</p>
+      </div>
+      <div class="page hidden" id="page2">
+        <h2>🎁 Surprise Gift 2</h2>
+        <p>Your second special message!</p>
+      </div>
+      <div class="page hidden" id="page3">
+        <h2>🎁 Surprise Gift 3</h2>
+        <p>Finally, your last surprise!</p>
+      </div>
+      <button id="nextPage">Next</button>
+    </div>
+  </div>
+
+  <!-- Additional placeholders for old site logic -->
+  <div id="old-hidden-elements">
+    <div class="old-card" id="hidden-card-1"></div>
+    <div class="old-card" id="hidden-card-2"></div>
+    <div class="old-card" id="hidden-card-3"></div>
+  </div>
+
+  <!-- JS libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Main JS -->
   <script src="script.js"></script>
 </body>
 </html>
