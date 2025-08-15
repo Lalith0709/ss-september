@@ -20,167 +20,90 @@ const countdownScreen = $("countdownScreen");
 const celebrationScreen = $("celebrationScreen");
 const confettiCanvas = $("confetti");
 
-/* ====== HELPERS ====== */
-const pad = (n) => String(n).padStart(2, "0");
-const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
-const lerp = (a, b, t) => a + (b - a) * t;
-// Smooth but snappy easing for slot effect
-const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+/* ====== HELPER…
+const countdownDate = new Date("Sep 7, 2025 00:00:00").getTime();
+const celebrationScreen = document.querySelector(".celebration");
+const daysEl = document.getElementById("days");
+const hoursEl = document.getElementById("hours");
+const minutesEl = document.getElementById("minutes");
+const secondsEl = document.getElementById("seconds");
 
-/* ====== REAL COUNTDOWN ====== */
-function updateRealCountdown() {
-  const now = new Date();
-  let diff = Math.floor((TARGET - now) / 1000); // seconds left
+function updateCountdown() {
+  const now = new Date().getTime();
+  const distance = countdownDate - now;
 
-  if (diff <= 0) {
-    // Switch to fake rolling phase immediately at target
+  if (distance <= 0) {
     startFakeCountdown();
-    return true; // signal that we’re done with real countdown
+    return;
   }
 
-  const d = Math.floor(diff / 86400); diff -= d * 86400;
-  const h = Math.floor(diff / 3600);  diff -= h * 3600;
-  const m = Math.floor(diff / 60);
-  const s = diff - m * 60;
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-  daysEl.textContent = d;
-  hoursEl.textContent = pad(h);
-  minutesEl.textContent = pad(m);
-  secondsEl.textContent = pad(s);
-  return false;
+  daysEl.textContent = days;
+  hoursEl.textContent = hours;
+  minutesEl.textContent = minutes;
+  secondsEl.textContent = seconds;
 }
 
-(function startRealCountdown(){
-  // Initial paint
-  const done = updateRealCountdown();
-  if (done) return;
-  // Tick each second
-  const t = setInterval(() => {
-    const finished = updateRealCountdown();
-    if (finished) clearInterval(t);
-  }, 1000);
-})();
+function startFakeCountdown() {
+  let fakeDays = 92;
+  let fakeHours = 0;
+  let fakeMinutes = 0;
+  let fakeSeconds = 0;
 
-/* ====== FAKE ROLLING COUNTDOWN ====== */
-function startFakeCountdown(){
-  statusLine.textContent = "Surprise! Rolling to zero…";
-  let start = null;
-
-  function frame(ts){
-    if (!start) start = ts;
-    const elapsed = ts - start;
-    const t = clamp(elapsed / FAKE_DURATION, 0, 1);
-    const e = easeOutCubic(t);
-
-    // Days go 92 -> 0
-    const d = Math.round(lerp(FAKE_DAYS_START, 0, e));
-
-    // To enhance the “slot” feeling, make lower units spin slightly faster by
-    // overshooting and snapping back with a modular wrap that tightens near the end.
-    const spin = (startValue, cycles) => {
-      // cycles = how many extra wraps early on (decreases to 0 at the end)
-      const w = (1 - e) * cycles;           // remaining wraps
-      const base = lerp(startValue + w * startValue, 0, e); // diminish towards 0
-      return Math.max(0, Math.round(base) % (startValue + 1));
-    };
-
-    const h = spin(FAKE_H_START, 1.8); // hours spin a bit
-    const m = spin(FAKE_M_START, 3.2); // minutes spin more
-    const s = spin(FAKE_S_START, 5.0); // seconds spin the most
-
-    // Visually smooth: tiny wobble using translateY
-    const wobble = (v) => {
-      const off = Math.sin(ts / 70) * 0.5; // subtle
-      return `translateY(${off}px)`;
-    };
-
-    daysEl.style.transform = wobble(d);
-    hoursEl.style.transform = wobble(h);
-    minutesEl.style.transform = wobble(m);
-    secondsEl.style.transform = wobble(s);
-
-    daysEl.textContent = d;
-    hoursEl.textContent = pad(h);
-    minutesEl.textContent = pad(m);
-    secondsEl.textContent = pad(s);
-
-    if (elapsed < FAKE_DURATION) {
-      requestAnimationFrame(frame);
+  const interval = setInterval(() => {
+    fakeDays--;
+    if (fakeDays < 0) {
+      clearInterval(interval);
+      showCelebration();
     } else {
-      // Snap to zero, then celebrate
-      daysEl.textContent = 0;
-      hoursEl.textContent = "00";
-      minutesEl.textContent = "00";
-      secondsEl.textContent = "00";
-      setTimeout(showCelebration, 250);
+      daysEl.textContent = fakeDays;
     }
-  }
-  requestAnimationFrame(frame);
+  }, 50); // Fast roll
 }
 
-/* ====== CELEBRATION (CONFETTI) ====== */
-let W = 0, H = 0, pieces = [];
-function resizeCanvas(){
-  if (!confettiCanvas) return;
-  W = confettiCanvas.width = window.innerWidth;
-  H = confettiCanvas.height = window.innerHeight;
-}
-window.addEventListener("resize", resizeCanvas);
-
-function ConfettiPiece() {
-  this.x = Math.random() * W;
-  this.y = Math.random() * -H;
-  this.size = 6 + Math.random() * 10;
-  this.speed = 1 + Math.random() * 3.2;
-  this.rotation = Math.random() * 360;
-  this.spin = -3 + Math.random() * 6;
-  this.alpha = 0.8 + Math.random() * 0.2;
-  this.shape = Math.random() > 0.5 ? "rect" : "circle";
-  this.hue = Math.floor(Math.random()*360);
-}
-
-function burst(n=220){
-  for(let i=0;i<n;i++) pieces.push(new ConfettiPiece());
-}
-
-function drawConfetti(){
-  const ctx = confettiCanvas.getContext("2d");
-  ctx.clearRect(0,0,W,H);
-  pieces.forEach((p)=> {
-    p.y += p.speed;
-    p.rotation += p.spin;
-    ctx.save();
-    ctx.globalAlpha = p.alpha;
-    ctx.translate(p.x, p.y);
-    ctx.rotate(p.rotation * Math.PI/180);
-    ctx.fillStyle = `hsl(${p.hue}, 100%, 70%)`;
-    if(p.shape==='rect'){
-      ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
-    } else {
-      ctx.beginPath(); ctx.arc(0,0,p.size/2,0,Math.PI*2); ctx.fill();
-    }
-    ctx.restore();
-  });
-  pieces = pieces.filter(p => p.y < H + 40);
-  requestAnimationFrame(drawConfetti);
-}
-
-function showCelebration(){
-  countdownScreen.style.display = "none";
+function showCelebration() {
   celebrationScreen.hidden = false;
-  resizeCanvas();
-  // a couple bursts so it feels lively
-  burst(260);
-  setTimeout(()=>burst(160), 500);
-  setTimeout(()=>burst(160), 1200);
-  requestAnimationFrame(drawConfetti);
+  launchConfetti();
 }
 
-/* ===== If someone opens exactly at/after target, go straight to fake/celebration ===== */
-(function guardAtLoad(){
-  const now = new Date();
-  if (now >= TARGET) {
-    // Immediately do the fake roll then celebrate
-    startFakeCountdown();
+function launchConfetti() {
+  const duration = 8000;
+  const animationEnd = Date.now() + duration;
+  const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
+
+  function randomInRange(min, max) {
+    return Math.random() * (max - min) + min;
   }
-})();
+
+  const heartShape = confetti.shapeFromPath({
+    path: "M0 -15 C-15 -35, -40 -15, 0 15 C40 -15, 15 -35, 0 -15 Z"
+  });
+
+  const interval = setInterval(() => {
+    const timeLeft = animationEnd - Date.now();
+    if (timeLeft <= 0) return clearInterval(interval);
+
+    const particleCount = 5 * (timeLeft / duration);
+
+    confetti(Object.assign({}, defaults, {
+      particleCount,
+      shapes: ['circle'],
+      colors: ['#ff69b4'], // opaque pink
+      origin: { x: randomInRange(0, 1), y: Math.random() - 0.2 }
+    }));
+
+    confetti(Object.assign({}, defaults, {
+      particleCount,
+      shapes: [heartShape],
+      colors: ['#fbb6ce'], // light pink hearts
+      origin: { x: randomInRange(0, 1), y: Math.random() - 0.2 }
+    }));
+  }, 250);
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
