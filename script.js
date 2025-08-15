@@ -1,225 +1,170 @@
-// ========== CONFIG ==========
-const realCountdownDate = new Date('September 7, 2025 00:00:00').getTime();
-const fakeCountdownStart = { days: 92, hours: 18, minutes: 7, seconds: 1 };
-const fakeCountdownDuration = 4000; // 4 seconds
+// 🎯 SETTINGS
+const birthdayDate = new Date("September 7, 2025 00:00:00").getTime();
+const fakeCountdownStart = { days: 92, hours: 18, minutes: 7, seconds: 32 };
+const messageCard = document.getElementById("messageCard");
+const rocketEl = document.getElementById("rocket");
 
-// ========== ELEMENTS ==========
-const container = document.getElementById('countdown-container');
-const countdownEl = document.getElementById('countdown');
-const daysEl = document.getElementById('days');
-const hoursEl = document.getElementById('hours');
-const minutesEl = document.getElementById('minutes');
-const secondsEl = document.getElementById('seconds');
+let firstVisit = !localStorage.getItem("visitedBefore");
 
-// ========== REAL COUNTDOWN ==========
-function startRealCountdown() {
-  const interval = setInterval(() => {
-    const now = new Date().getTime();
-    const distance = realCountdownDate - now;
-
-    if(distance <= 0){
-      clearInterval(interval);
-      container.style.display = "none"; // hide real countdown
-      startFakeCountdown();
-      return;
-    }
-
-    const d = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000*60*60));
-    const m = Math.floor((distance % (1000 * 60 * 60)) / (1000*60));
-    const s = Math.floor((distance % (1000 * 60)) / 1000);
-
-    daysEl.innerText = d;
-    hoursEl.innerText = h;
-    minutesEl.innerText = m;
-    secondsEl.innerText = s;
-  },1000);
-}
-
-startRealCountdown();
-
-// ========== FAKE COUNTDOWN ==========
-function startFakeCountdown() {
-  container.style.display = "block"; // show container again
-  const startTime = performance.now();
-  function animateFake(time) {
-    const elapsed = time - startTime;
-    const progress = Math.min(elapsed / fakeCountdownDuration, 1);
-
-    const days = Math.floor(fakeCountdownStart.days * (1 - progress));
-    const hours = Math.floor(fakeCountdownStart.hours * (1 - progress));
-    const minutes = Math.floor(fakeCountdownStart.minutes * (1 - progress));
-    const seconds = Math.floor(fakeCountdownStart.seconds * (1 - progress));
-
-    daysEl.innerText = days;
-    hoursEl.innerText = hours;
-    minutesEl.innerText = minutes;
-    secondsEl.innerText = seconds;
-
-    if(progress < 1){
-      requestAnimationFrame(animateFake);
-    } else {
-      countdownEl.innerHTML = "🎉 Happy 18th Birthday! 🎉";
-      startHeartFirework();
-    }
-  }
-  requestAnimationFrame(animateFake);
-  startConfetti();
-}
-
-// ========== CONFETTI ==========
+// 🎆 Start Confetti & Fireworks
 function startConfetti() {
-  const canvas = document.getElementById('confetti');
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+    const duration = 15 * 1000;
+    const end = Date.now() + duration;
 
-  const confettiCount = 200;
-  const confettis = [];
+    (function frame() {
+        confetti({
+            particleCount: 5,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: ["#ffffff", "#ff69b4"]
+        });
+        confetti({
+            particleCount: 5,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: ["#ffffff", "#ff69b4"]
+        });
 
-  for(let i=0;i<confettiCount;i++){
-    confettis.push({
-      x: Math.random()*canvas.width,
-      y: Math.random()*canvas.height,
-      r: Math.random()*6+4,
-      d: Math.random()*confettiCount,
-      color: hsl(${Math.random()*360}, 100%, 50%),
-      tilt: Math.random()*10-10
-    });
-  }
-
-  function drawConfetti(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    confettis.forEach(c => {
-      ctx.beginPath();
-      ctx.lineWidth = c.r;
-      ctx.strokeStyle = c.color;
-      ctx.moveTo(c.x + c.tilt + c.r/2, c.y);
-      ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r/2);
-      ctx.stroke();
-
-      c.y += Math.cos(c.d) + 1 + c.r/2;
-      if(c.y > canvas.height){ c.y = 0; c.x = Math.random()*canvas.width; }
-    });
-    requestAnimationFrame(drawConfetti);
-  }
-
-  drawConfetti();
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    })();
 }
 
-// ========== NORMAL FIREWORKS ==========
+// 🎆 Start Fireworks
 function startFireworks() {
-  const canvas = document.getElementById('fireworks');
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+    const container = document.createElement("div");
+    container.style.position = "fixed";
+    container.style.top = "0";
+    container.style.left = "0";
+    container.style.width = "100%";
+    container.style.height = "100%";
+    container.style.pointerEvents = "none";
+    document.body.appendChild(container);
 
-  const fireworksArr = [];
-
-  function random(min,max){ return Math.random()*(max-min)+min; }
-
-  class Particle {
-    constructor(x,y,color){
-      this.x = x;
-      this.y = y;
-      this.color = color;
-      this.velX = random(-5,5);
-      this.velY = random(-5,5);
-      this.alpha = 1;
-      this.size = 2;
-    }
-    update(){
-      this.x += this.velX;
-      this.y += this.velY;
-      this.alpha -= 0.02;
-    }
-    draw(){
-      ctx.globalAlpha = this.alpha;
-      ctx.beginPath();
-      ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
-      ctx.fillStyle = this.color;
-      ctx.fill();
-      ctx.globalAlpha = 1;
-    }
-  }
-
-  function explode(x,y){
-    const color = hsl(${Math.random()*360},100%,50%);
-    for(let i=0;i<50;i++){
-      fireworksArr.push(new Particle(x,y,color));
-    }
-  }
-
-  function animate(){
-    ctx.fillStyle = "rgba(0,0,0,0.2)";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-
-    fireworksArr.forEach((p,i)=>{
-      p.update();
-      p.draw();
-      if(p.alpha <=0) fireworksArr.splice(i,1);
+    const fireworks = new Fireworks.default(container, {
+        autoresize: true,
+        opacity: 0.5,
+        acceleration: 1.05,
+        friction: 0.97,
+        gravity: 1.5,
+        particles: 50,
+        traceLength: 3,
+        traceSpeed: 10,
+        explosion: 5,
+        intensity: 20,
+        flickering: 50,
+        hue: { min: 0, max: 360 },
+        delay: { min: 30, max: 60 },
     });
 
-    if(Math.random()<0.05){
-      explode(random(0,canvas.width),random(0,canvas.height/2));
-    }
-
-    requestAnimationFrame(animate);
-  }
-
-  animate();
+    fireworks.start();
+    return fireworks;
 }
 
-// ========== HEART FIREWORK ==========
-function startHeartFirework(){
-  const canvas = document.getElementById('fireworks');
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  let rocketY = canvas.height;
-  const rocketX = canvas.width/2;
-  const middleY = canvas.height/2;
-  let heartAlpha = 1;
-
-  function drawHeart(x, y, scale=1){
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.scale(scale, scale);
-    ctx.beginPath();
-    const size = 15;
-    ctx.moveTo(0,0);
-    ctx.bezierCurveTo(-size,-size, -size,-3*size, 0,-4*size);
-    ctx.bezierCurveTo(size,-3*size, size,-size, 0,0);
-    ctx.strokeStyle = rgba(255,0,0,${heartAlpha});
-    ctx.lineWidth = 3;
-    ctx.setLineDash([5,5]);
-    ctx.shadowColor = "red";
-    ctx.shadowBlur = 20 * heartAlpha;
-    ctx.stroke();
-    ctx.restore();
-  }
-
-  function animateHeart(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    if(rocketY > middleY){
-      // draw rocket
-      ctx.fillStyle = "white";
-      ctx.beginPath();
-      ctx.arc(rocketX, rocketY, 5,0,Math.PI*2);
-      ctx.fill();
-      rocketY -= 10;
-      requestAnimationFrame(animateHeart);
-    } else if(heartAlpha>0){
-      // draw heart
-      drawHeart(rocketX, rocketY, 10);
-      heartAlpha -= 0.01;
-      requestAnimationFrame(animateHeart);
-    } else{
-      // start normal fireworks after heart
-      startFireworks();
-    }
-  }
-
-  animateHeart();
+// 🎯 Update Countdown
+function updateCountdown(days, hours, minutes, seconds) {
+    document.getElementById("days").innerText = days.toString().padStart(2, "0");
+    document.getElementById("hours").innerText = hours.toString().padStart(2, "0");
+    document.getElementById("minutes").innerText = minutes.toString().padStart(2, "0");
+    document.getElementById("seconds").innerText = seconds.toString().padStart(2, "0");
 }
+
+// 🎯 Fake Countdown Animation
+function startFakeCountdown() {
+    let d = fakeCountdownStart.days;
+    let h = fakeCountdownStart.hours;
+    let m = fakeCountdownStart.minutes;
+    let s = fakeCountdownStart.seconds;
+    const totalFrames = 60; // 4 seconds @ 15fps
+    let frame = 0;
+
+    const interval = setInterval(() => {
+        let progress = frame / totalFrames;
+        updateCountdown(
+            Math.max(0, Math.floor(d * (1 - progress))),
+            Math.max(0, Math.floor(h * (1 - progress))),
+            Math.max(0, Math.floor(m * (1 - progress))),
+            Math.max(0, Math.floor(s * (1 - progress)))
+        );
+
+        frame++;
+        if (frame > totalFrames) {
+            clearInterval(interval);
+            setTimeout(startRocketAnimation, 1000);
+        }
+    }, 66); // ~15fps
+}
+
+// 🚀 Rocket → Heart Animation
+function startRocketAnimation() {
+    rocketEl.style.opacity = "1";
+    rocketEl.style.transition = "bottom 3s ease-in";
+    rocketEl.style.bottom = "50%";
+
+    setTimeout(() => {
+        rocketEl.style.opacity = "0";
+        showHeart();
+    }, 3000);
+}
+
+// 💖 Show Sparkling Heart
+function showHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart-shape";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+        setTimeout(() => {
+            startConfetti();
+            startFireworks();
+            messageCard.style.display = "block";
+        }, 1000);
+    }, 5000);
+}
+
+// 📅 Main Logic
+if (firstVisit) {
+    // Show real countdown briefly
+    const realCountdown = setInterval(() => {
+        const now = Date.now();
+        const diff = birthdayDate - now;
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        updateCountdown(days, hours, minutes, seconds);
+    }, 1000);
+
+    setTimeout(() => {
+        clearInterval(realCountdown);
+        startFakeCountdown();
+        localStorage.setItem("visitedBefore", "true");
+    }, 3000);
+
+} else {
+    startFakeCountdown();
+}
+
+// Message Card Click
+messageCard.addEventListener("click", () => {
+    alert(`🎉💖 You are the most special person in my life, Srujana 💖🎉
+You're finally 18!! Srujana 🎂🎊🎉
+
+Happy birthday papa! Nek oche first wish na nundi ravali ani korukuntuna oka china selfishness 😋🥰
+ela unnav?? bagunav anukuntuna... neetho asalu eppudu matlada le kani chala deep ga attach ipoya
+maybe neelo unna charm chami emo idhi.. here are some heartfelt wishes to a person
+who is incredibly smart and incredibly silly.. to a person who is beautiful, charming, and elegant
+to a girl who is intelligent, and stupid (abit-koncham).. anyway wishing you a happy birthday alegala
+ela chepkuntu povala okaa janma chalaadu emo...
+
+Nee stories lo naku unblock cheiyachuga... see you soon in vizag... neku eppudiyina low unte remember
+this guy is just a msg away just hit me up💖
+
+You deserve so much more... regards your guy Lalith 🥰`);
+});
