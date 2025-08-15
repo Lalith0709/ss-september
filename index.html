@@ -1,74 +1,28 @@
-<!doctype html>
+[12:01 pm, 15/8/2025] Lalith.krishna: <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Happy 18th birthday Srujana </title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Countdown</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- FX canvas handles confetti, rocket, heart, fireworks -->
-  <canvas id="fxCanvas" aria-hidden="true"></canvas>
+  <!-- Confetti canvas -->
+  <canvas id="confetti"></canvas>
 
-  <main class="wrap" id="countdownScreen">
-    <section class="card">
-      <h1 class="title">Counting down to your day papa<span>💕</span></h1>
+  <!-- Fireworks canvas -->
+  <canvas id="fireworks"></canvas>
 
-      <div class="counter-row" aria-live="polite">
-        <div class="counter unit">
-          <div id="days" class="num">0</div>
-          <div class="label">Days</div>
-        </div>
-        <div class="counter unit">
-          <div id="hours" class="num">00</div>
-          <div class="label">Hours</div>
-        </div>
-        <div class="counter unit">
-          <div id="minutes" class="num">00</div>
-          <div class="label">Minutes</div>
-        </div>
-        <div class="counter unit">
-          <div id="seconds" class="num">00</div>
-          <div class="label">Seconds</div>
-        </div>
-      </div>
-
-      <div class="quote">
-        <p id="quoteText">Just a little more… A small gift for my favorite person ❤️</p>
-      </div>
-
-      <p id="statusLine" class="status soft">hope this site brings u joy</p>
-    </section>
-
-    <!-- Decorative floating shapes behind card -->
-    <ul class="floaters" aria-hidden="true">
-      <li></li><li></li><li></li><li></li><li></li>
-      <li></li><li></li><li></li><li></li><li></li>
-    </ul>
-
-    <!-- Surprise / gift / custom message sections (intact) -->
-    <section class="extra">
-    <article class="custom-message">
-        <h2>💌 Custom Message</h2>
-        <p id="customText">To srujana ~ ela unnav?? bagunav anukuntuna... neetho asala eppudu matlada le kani chala deep ga attach ipoya
-        maybe neelo unna charm emo adhi.. here are some heartfull wishes to a person 
-        who is incredibly smart and incredibly silly. to a pearson who is beautiful,charming,and elegant
-        to a girl who is intellegent,and stupid(a bit).. to a girl who can be spotted in crowd of million and more 
-        ela chepukuntu povali ante okka janma chaladhu emo...anyway wishing you a happy birthday..</p>
-      </article>
-    </section>
-  </main>
-
-  <!-- Celebration overlay (shows after finale trigger) -->
-  <section id="celebrationScreen" class="celebration" hidden>
-    <div class="cat-bg" aria-hidden="true"></div>
-
-    <div class="celebration-inner">
-      <h2 class="cele-title">🎉 Happy 18th Birthday, Srujana! 🎉</h2>
-      <p class="cele-sub">Wishing you a year full of love, laughter and magic ✨
-         kudhirithe koncham sotries unblock cheiyachu ga papa</p>
+  <!-- Countdown box -->
+  <div class="container" id="countdown-container">
+    <h1>🎂 18th Birthday Countdown 🎉</h1>
+    <div id="countdown">
+      <span id="days"></span> Days 
+      <span id="hours"></span> Hours 
+      <span id="minutes"></span> Minutes 
+      <span id="seconds"></span> Seconds
     </div>
-  </section>
+  </div>
 
   <script src="script.js"></script>
 </body>
