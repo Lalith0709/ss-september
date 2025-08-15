@@ -50,7 +50,7 @@ function showMessageCard() {
 function startConfetti() {
   setInterval(() => {
     confetti({
-      particleCount: 200,
+      particleCount: 250,
       spread: 100,
       origin: { y: 0 }
     });
@@ -62,13 +62,13 @@ function startFireworks() {
   let end = Date.now() + duration;
   (function frame() {
     confetti({
-      particleCount: 200,
+      particleCount: 250,
       angle: 60,
       spread: 100,
       origin: { x: 0 }
     });
     confetti({
-      particleCount: 200,
+      particleCount: 250,
       angle: 120,
       spread: 100,
       origin: { x: 1 }
