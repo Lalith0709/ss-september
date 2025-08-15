@@ -136,7 +136,8 @@ function stopSoftEmitter() {
 
 /* Countdown logic */
 let realTimer = null;
-startSoftEmitter(); //start confetti during real countdown
+startSoftEmitter(); //start confetti during real countdown is live
+realTimer = setInterval(paintReal,1000)
 function paintReal() {
   const now = new Date();
   const diffSec = Math.floor((TARGET - now) / 1000);
