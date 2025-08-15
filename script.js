@@ -91,7 +91,7 @@ function startFakeCountdown(){
     // Visually smooth: tiny wobble using translateY
     const wobble = (v) => {
       const off = Math.sin(ts / 70) * 0.5; // subtle
-      return translateY(${off}px);
+      return `translateY(${off}px)`;
     };
 
     daysEl.style.transform = wobble(d);
@@ -153,7 +153,7 @@ function drawConfetti(){
     ctx.globalAlpha = p.alpha;
     ctx.translate(p.x, p.y);
     ctx.rotate(p.rotation * Math.PI/180);
-    ctx.fillStyle = hsl(${p.hue}, 100%, 70%);
+    ctx.fillStyle = `hsl(${p.hue}, 100%, 70%)`;
     if(p.shape==='rect'){
       ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
     } else {
