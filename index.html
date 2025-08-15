@@ -7,54 +7,44 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Pre-countdown message -->
+  <div id="pre-message" class="overlay">
+    <div class="message-box">
+      <h1>🎉 Get Ready for a Special Birthday! 🎉</h1>
+      <button id="startCountdown">Start Countdown</button>
+    </div>
+  </div>
 
   <!-- Countdown Container -->
   <div id="countdown-container">
-    <!-- Confetti canvas over the countdown box -->
     <canvas id="confetti"></canvas>
-
-    <!-- Fireworks canvas for background celebrations -->
     <canvas id="fireworks"></canvas>
-
-    <!-- Countdown Box Wrapper -->
-    <div id="countdown-box-wrapper">
-      <div id="countdown-box">
-        <h1>🎂 Your 18th Birthday 🎂</h1>
-
-        <!-- Countdown numbers wrapper -->
-        <div class="countdown-wrapper">
-          <div class="countdown-item">
-            <span id="days">0</span>
-            <small>Days</small>
-          </div>
-          <div class="countdown-item">
-            <span id="hours">0</span>
-            <small>Hours</small>
-          </div>
-          <div class="countdown-item">
-            <span id="minutes">0</span>
-            <small>Minutes</small>
-          </div>
-          <div class="countdown-item">
-            <span id="seconds">0</span>
-            <small>Seconds</small>
-          </div>
-        </div>
-
-        <!-- Placeholder for extra animations if needed -->
-        <div id="extra-animation-wrapper">
-          <div class="extra-animation-item"></div>
-          <div class="extra-animation-item"></div>
-        </div>
+    <div id="countdown-box">
+      <h1>🎂 Your 18th Birthday 🎂</h1>
+      <div class="countdown">
+        <div><span id="days">0</span><small>Days</small></div>
+        <div><span id="hours">0</span><small>Hours</small></div>
+        <div><span id="minutes">0</span><small>Minutes</small></div>
+        <div><span id="seconds">0</span><small>Seconds</small></div>
       </div>
     </div>
   </div>
 
-  <!-- Hidden old surprise elements / cards -->
-  <div id="old-hidden-elements">
-    <div class="old-card" id="hidden-card-1"></div>
-    <div class="old-card" id="hidden-card-2"></div>
-    <div class="old-card" id="hidden-card-3"></div>
+  <!-- Post-countdown pages -->
+  <div id="post-pages" class="overlay hidden">
+    <div class="page" id="page1">
+      <h2>🎁 Surprise Gift 1</h2>
+      <p>Your first gift is waiting!</p>
+    </div>
+    <div class="page hidden" id="page2">
+      <h2>🎁 Surprise Gift 2</h2>
+      <p>Another special message!</p>
+    </div>
+    <div class="page hidden" id="page3">
+      <h2>🎁 Surprise Gift 3</h2>
+      <p>Finally, your last surprise!</p>
+    </div>
+    <button id="nextPage">Next</button>
   </div>
 
   <!-- JS libraries -->

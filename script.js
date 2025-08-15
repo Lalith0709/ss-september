@@ -1,147 +1,131 @@
-// -----------------------------
-// CONFIGURATION
-// -----------------------------
-const birthdayDate = new Date("September 7, 2025 00:00:00").getTime();
-const fakeCountdownDays = 92;      // fake countdown total days
-const fakeCountdownDuration = 4000; // 4 seconds in ms
-
-// DOM elements
+// ------------------------
+// Real countdown logic with celebration
+// ------------------------
+const realDate = new Date("September 7, 2025 00:00:00").getTime();
 const daysEl = document.getElementById("days");
 const hoursEl = document.getElementById("hours");
 const minutesEl = document.getElementById("minutes");
 const secondsEl = document.getElementById("seconds");
-const extraAnimationWrapper = document.getElementById("extra-animation-wrapper");
-const oldElements = document.getElementById("old-hidden-elements");
-const confettiCanvas = document.getElementById("confetti");
-const fireworksCanvas = document.getElementById("fireworks");
 
-// Check localStorage if real countdown ended previously
-const realCountdownDone = localStorage.getItem("realCountdownDone") === "true";
+startConfetti(); // start confetti immediately
+startFireworks(); // start fireworks immediately
 
-// -----------------------------
-// REAL COUNTDOWN
-// -----------------------------
-function startRealCountdown() {
-  const interval = setInterval(() => {
-    const now = new Date().getTime();
-    const distance = birthdayDate - now;
+let realInterval = setInterval(updateRealCountdown, 1000);
 
-    if (distance <= 0) {
-      clearInterval(interval);
-      updateCountdown(0, 0, 0, 0);
-      localStorage.setItem("realCountdownDone", "true");
-      // After real countdown ends, start fake countdown
-      startFakeCountdown();
-    } else {
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      updateCountdown(days, hours, minutes, seconds);
-    }
-  }, 1000);
+function updateRealCountdown() {
+  const now = new Date().getTime();
+  let distance = realDate - now;
+
+  if(distance < 0) distance = 0;
+
+  const days = Math.floor(distance / (1000*60*60*24));
+  const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+  const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+  const seconds = Math.floor((distance % (1000*60)) / 1000);
+
+  daysEl.innerText = days;
+  hoursEl.innerText = hours;
+  minutesEl.innerText = minutes;
+  secondsEl.innerText = seconds;
+
+  if(distance === 0) {
+    clearInterval(realInterval);
+    startFakeCountdown(); // start fake countdown after real ends
+  }
 }
 
-// Update countdown numbers
-function updateCountdown(d, h, m, s) {
-  daysEl.textContent = d;
-  hoursEl.textContent = h;
-  minutesEl.textContent = m;
-  secondsEl.textContent = s;
-}
-
-// -----------------------------
-// FAKE COUNTDOWN
-// Smooth wheel rolling animation from 92 → 0 days in 4s
-// -----------------------------
+// ------------------------
+// Fake countdown logic with rolling wheels
+// ------------------------
 function startFakeCountdown() {
+  const fakeStartDays = 92;
+  const fakeStartHours = 23;
+  const fakeStartMinutes = 59;
+  const fakeStartSeconds = 59;
+  const duration = 3000; // 3 seconds
   const startTime = performance.now();
-  const startDays = fakeCountdownDays;
 
   function animateFake(now) {
     const elapsed = now - startTime;
-    const progress = Math.min(elapsed / fakeCountdownDuration, 1); // 0 → 1
-    const currentDay = Math.floor(startDays * (1 - progress));
-    updateCountdown(currentDay, 0, 0, 0);
+    const progress = Math.min(elapsed / duration, 1);
 
-    if (progress < 1) {
+    const days = Math.floor(fakeStartDays * (1 - progress));
+    const hours = Math.floor(fakeStartHours * (1 - progress));
+    const minutes = Math.floor(fakeStartMinutes * (1 - progress));
+    const seconds = Math.floor(fakeStartSeconds * (1 - progress));
+
+    daysEl.innerText = days;
+    hoursEl.innerText = hours;
+    minutesEl.innerText = minutes;
+    secondsEl.innerText = seconds;
+
+    if(progress < 1) {
       requestAnimationFrame(animateFake);
-    } else {
-      // Fake countdown complete: trigger celebrations
-      triggerCelebration();
     }
   }
 
   requestAnimationFrame(animateFake);
 }
 
-// -----------------------------
-// CELEBRATION: CONFETTI + FIREWORKS + SHOW HIDDEN ELEMENTS
-// -----------------------------
-function triggerCelebration() {
-  // Show hidden cards/messages
-  oldElements.style.display = "flex";
-
-  // Confetti (over countdown box)
-  confetti({
-    particleCount: 150,
-    spread: 70,
-    origin: { y: 0.6 },
-  });
-
-  // Fireworks using canvas animation
-  startFireworks();
+// ------------------------
+// Confetti (continuous)
+// ------------------------
+function startConfetti() {
+  const confettiCanvas = document.getElementById("confetti-canvas") || document.body;
+  (function frame() {
+    confetti({
+      particleCount: 5,
+      angle: 60,
+      spread: 55,
+      origin: { x: 0 }
+    });
+    confetti({
+      particleCount: 5,
+      angle: 120,
+      spread: 55,
+      origin: { x: 1 }
+    });
+    requestAnimationFrame(frame); // continuous
+  })();
 }
 
-// Simple fireworks animation
+// ------------------------
+// Fireworks (continuous)
+// ------------------------
 function startFireworks() {
+  const fireworksCanvas = document.getElementById("fireworks");
   const ctx = fireworksCanvas.getContext("2d");
-  fireworksCanvas.width = window.innerWidth;
-  fireworksCanvas.height = window.innerHeight;
+  fireworksCanvas.width = fireworksCanvas.offsetWidth;
+  fireworksCanvas.height = fireworksCanvas.offsetHeight;
 
   const particles = [];
 
   function createParticle() {
     const x = Math.random() * fireworksCanvas.width;
-    const y = Math.random() * fireworksCanvas.height/2;
-    const dx = (Math.random() - 0.5) * 6;
-    const dy = (Math.random() - 0.5) * 6;
-    const color = `hsl(${Math.random()*360}, 100%, 50%)`;
-    particles.push({x, y, dx, dy, color, alpha: 1});
+    const y = fireworksCanvas.height;
+    const speed = Math.random() * 5 + 3;
+    const angle = Math.random() * Math.PI - Math.PI/2;
+    const color = hsl(${Math.random()*360},100%,50%);
+    particles.push({x, y, speed, angle, color, alpha:1});
   }
 
   function animate() {
-    ctx.clearRect(0,0,fireworksCanvas.width, fireworksCanvas.height);
-    for (let i=0;i<particles.length;i++) {
+    ctx.clearRect(0,0,fireworksCanvas.width,fireworksCanvas.height);
+    for(let i=particles.length-1;i>=0;i--){
       const p = particles[i];
-      p.x += p.dx;
-      p.y += p.dy;
+      p.x += Math.cos(p.angle) * p.speed;
+      p.y += Math.sin(p.angle) * p.speed;
       p.alpha -= 0.01;
-      if (p.alpha <= 0) particles.splice(i,1);
-      else {
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.alpha;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 3, 0, Math.PI*2);
-        ctx.fill();
-      }
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = p.alpha;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 3,0,Math.PI*2);
+      ctx.fill();
+      if(p.alpha <=0) particles.splice(i,1);
     }
-    ctx.globalAlpha = 1;
     requestAnimationFrame(animate);
   }
 
-  // Create burst of particles
-  for (let i=0;i<150;i++) createParticle();
+  setInterval(createParticle, 200); // keep creating particles continuously
   animate();
-}
-
-// -----------------------------
-// INITIALIZATION
-// -----------------------------
-if (realCountdownDone) {
-  // Real countdown ended previously
-  updateCountdown(0,0,0,0);
-  startFakeCountdown(); // run fake countdown + celebrations immediately
-} else {
-  startRealCountdown(); // start real countdown
 }
