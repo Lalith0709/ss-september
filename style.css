@@ -1,96 +1,76 @@
-/* General Page Styling */
 body {
-    margin: 0;
-    padding: 0;
-    background: #ffe6f0; /* Light pastel pink */
-    font-family: 'Poppins', sans-serif;
-    color: #fff;
-    overflow: hidden;
-    position: relative;
+  background-color: #ffe6f0;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  margin: 0;
+  overflow-x: hidden;
 }
 
-/* Countdown Container */
 .countdown-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin-top: 100px;
-    z-index: 2; /* So animations can overlay */
-    position: relative;
+  margin-top: 50px;
+  color: #f993c6ec;
 }
 
-.count-box {
-    background: #ffb6c1;
-    padding: 20px;
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
 }
 
-.count-box span {
-    font-size: 2.5em;
-    font-weight: bold;
-    display: block;
+.time-box {
+  display: inline-block;
+  margin: 10px;
+  padding: 15px;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-.count-box p {
-    margin: 0;
-    font-size: 1em;
-    color: #fff;
+.time-box span {
+  display: block;
+  font-size: 2rem;
+  font-weight: bold;
 }
 
-/* Rocket Animation Placeholder */
-.rocket-container {
-    position: absolute;
-    bottom: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 80px;
-    background: url('https://upload.wikimedia.org/wikipedia/commons/0/0e/NASA_space_shuttle_icon.svg') no-repeat center/contain;
-    opacity: 0;
-    z-index: 5;
+.rocket {
+  width: 40px;
+  height: 60px;
+  background: rgb(245, 57, 173);
+  position: fixed;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 20px;
+  display: none;
 }
 
-/* Heart Shape After Explosion */
-.heart-shape {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 150px;
-    height: 150px;
-    border: 3px dotted pink;
-    border-radius: 50%;
-    background: transparent;
-    animation: sparkle 1s infinite alternate;
-    z-index: 5;
+.heart {
+  width: 120px;
+  height: 120px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  border: 3px dotted #ff69b4;
+  border-radius: 50%;
+  display: none;
+  animation: sparkle 1s infinite;
 }
 
 @keyframes sparkle {
-    from { box-shadow: 0 0 10px pink; }
-    to { box-shadow: 0 0 20px hotpink; }
+  0%, 100% { box-shadow: 0 0 5px #ff69b4; }
+  50% { box-shadow: 0 0 20px #ff1493; }
 }
 
-/* Message Card */
 .message-card {
-    display: none;
-    position: fixed;
-    bottom: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: white;
-    color: #ff69b4;
-    padding: 20px 40px;
-    border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(255, 105, 180, 0.4);
-    cursor: pointer;
-    font-weight: bold;
-    text-align: center;
-    z-index: 6;
-}
-
-.message-card:hover {
-    background: #ffe6f0;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 15px 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  cursor: pointer;
+  display: none;
 }
