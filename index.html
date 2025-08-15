@@ -4,15 +4,17 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Happy 18th — Srujana</title>
-  <link href="style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- COUNTDOWN SCREEN -->
-  <main id="countdownScreen" class="wrap">
-    <section class="card">
-      <h1 class="title">Your Special Day is Almost Here <span>💕</span></h1>
+  <!-- FX canvas handles confetti, rocket, heart, fireworks -->
+  <canvas id="fxCanvas" aria-hidden="true"></canvas>
 
-      <div class="counter-row">
+  <main class="wrap" id="countdownScreen">
+    <section class="card">
+      <h1 class="title">Counting down to your day <span>💕</span></h1>
+
+      <div class="counter-row" aria-live="polite">
         <div class="counter unit">
           <div id="days" class="num">0</div>
           <div class="label">Days</div>
@@ -33,26 +35,39 @@
 
       <div class="quote">
         <p id="quoteText">Just a little more… A small gift for my favorite person ❤️</p>
-        <div class="dots">
-          <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
-        </div>
       </div>
+
       <p id="statusLine" class="status soft">Real countdown running…</p>
     </section>
 
-    <!-- soft floating hearts/circles background (decorative) -->
+    <!-- Decorative floating shapes behind card -->
     <ul class="floaters" aria-hidden="true">
       <li></li><li></li><li></li><li></li><li></li>
       <li></li><li></li><li></li><li></li><li></li>
     </ul>
+
+    <!-- Surprise / gift / custom message sections (intact) -->
+    <section class="extra">
+      <article class="surprise-card">
+        <h2>🎁 Surprise Card</h2>
+        <p id="surpriseText">A special surprise for Srujana — love you! 💖</p>
+      </article>
+
+      <article class="gift-card">
+        <h2>🎀 Gift Card</h2>
+        <p id="giftText">Gift: A wonderful year ahead — enjoy every moment.</p>
+      </article>
+
+      <article class="custom-message">
+        <h2>💌 Custom Message</h2>
+        <p id="customText">To Srujana — your 18th is the start of a beautiful chapter.</p>
+      </article>
+    </section>
   </main>
 
-  <!-- CELEBRATION SCREEN -->
+  <!-- Celebration overlay (shows after finale trigger) -->
   <section id="celebrationScreen" class="celebration" hidden>
     <div class="cat-bg" aria-hidden="true"></div>
-
-    <!-- confetti canvas (shared) -->
-    <canvas id="confettiCanvas" aria-hidden="true"></canvas>
 
     <div class="celebration-inner">
       <h2 class="cele-title">🎉 Happy 18th Birthday, Srujana! 🎉</h2>
