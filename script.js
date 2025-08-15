@@ -1,144 +1,156 @@
 /* =====================================================
-   PRE-COUNTDOWN FIREWORK GLIMPSE
+   PRE-COUNTDOWN OVERLAY LOGIC
 ===================================================== */
-function preCountdownFireworkGlimpse() {
-  const canvas = document.getElementById("fireworks");
-  const ctx = canvas.getContext("2d");
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
+const preMessage = document.getElementById("pre-message");
+const startBtn = document.getElementById("startCountdown");
 
-  const particles = [];
-  for (let i = 0; i < 50; i++) {
-    particles.push({
-      x: Math.random() * canvas.width,
-      y: canvas.height,
-      speed: Math.random() * 5 + 2,
-      angle: Math.random() * Math.PI - Math.PI / 2,
-      color: `hsl(${Math.random() * 360},100%,50%)`,
-      alpha: 1
-    });
-  }
-
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (let i = particles.length - 1; i >= 0; i--) {
-      const p = particles[i];
-      p.x += Math.cos(p.angle) * p.speed;
-      p.y += Math.sin(p.angle) * p.speed;
-      p.alpha -= 0.02;
-      ctx.fillStyle = p.color;
-      ctx.globalAlpha = p.alpha;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
-      ctx.fill();
-      if (p.alpha <= 0) particles.splice(i, 1);
-    }
-    if (particles.length > 0) requestAnimationFrame(animate);
-  }
-
-  animate();
-}
+startBtn.addEventListener("click", () => {
+  preMessage.classList.add("hidden");
+  startCountdown();
+});
 
 /* =====================================================
-   REAL COUNTDOWN LOGIC
+   COUNTDOWN VARIABLES
 ===================================================== */
-const countdownElements = {
-  days: document.getElementById("days"),
-  hours: document.getElementById("hours"),
-  minutes: document.getElementById("minutes"),
-  seconds: document.getElementById("seconds")
-};
-
 const birthdayDate = new Date("September 7, 2025 00:00:00").getTime();
-let countdownInterval;
+const daysEl = document.getElementById("days");
+const hoursEl = document.getElementById("hours");
+const minutesEl = document.getElementById("minutes");
+const secondsEl = document.getElementById("seconds");
 
-function startRealCountdown() {
+// Fake countdown start values
+let fakeDays = 10;
+let fakeHours = 23;
+let fakeMinutes = 59;
+let fakeSeconds = 59;
+
+let countdownInterval;
+let fakeCountdownActive = true;
+
+/* =====================================================
+   START COUNTDOWN FUNCTION
+===================================================== */
+function startCountdown() {
   countdownInterval = setInterval(() => {
     const now = new Date().getTime();
     let distance = birthdayDate - now;
+
+    // Ensure countdown never goes negative
     if (distance < 0) distance = 0;
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    /* ------------------------
+       FAKE COUNTDOWN LOGIC
+    ------------------------ */
+    if (fakeCountdownActive) {
+      daysEl.innerText = fakeDays;
+      hoursEl.innerText = fakeHours;
+      minutesEl.innerText = fakeMinutes;
+      secondsEl.innerText = fakeSeconds;
 
-    countdownElements.days.innerText = days;
-    countdownElements.hours.innerText = hours;
-    countdownElements.minutes.innerText = minutes;
-    countdownElements.seconds.innerText = seconds;
+      // Decrement fake countdown explicitly
+      fakeSeconds--;
+      if (fakeSeconds < 0) {
+        fakeSeconds = 59;
+        fakeMinutes--;
+        if (fakeMinutes < 0) {
+          fakeMinutes = 59;
+          fakeHours--;
+          if (fakeHours < 0) {
+            fakeHours = 23;
+            fakeDays--;
+            if (fakeDays < 0) {
+              fakeCountdownActive = false;
+            }
+          }
+        }
+      }
+    }
 
+    /* ------------------------
+       REAL COUNTDOWN LOGIC
+    ------------------------ */
+    if (!fakeCountdownActive) {
+      const realDays = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const realHours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const realMinutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const realSeconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      daysEl.innerText = realDays;
+      hoursEl.innerText = realHours;
+      minutesEl.innerText = realMinutes;
+      secondsEl.innerText = realSeconds;
+    }
+
+    /* ------------------------
+       CHECK COUNTDOWN END
+    ------------------------ */
     if (distance === 0) {
       clearInterval(countdownInterval);
       startCelebration();
-      startFakeCountdownAfterReal();
     }
+
   }, 1000);
 }
 
 /* =====================================================
-   FAKE COUNTDOWN “WHEEL ROLL” AFTER REAL END
+   CELEBRATION FUNCTIONS
 ===================================================== */
-function startFakeCountdownAfterReal() {
-  const start = 92; // starting fake days
-  const end = 0; // end
-  const duration = 3000; // 3 sec
-  const steps = 60;
-  let currentStep = 0;
-
-  const interval = setInterval(() => {
-    currentStep++;
-    const value = Math.floor(start - ((start - end) * currentStep / steps));
-    countdownElements.days.innerText = value;
-    countdownElements.hours.innerText = Math.floor(Math.random() * 24);
-    countdownElements.minutes.innerText = Math.floor(Math.random() * 60);
-    countdownElements.seconds.innerText = Math.floor(Math.random() * 60);
-    if (currentStep >= steps) clearInterval(interval);
-  }, duration / steps);
+function startCelebration() {
+  startConfetti();
+  startFireworks();
+  showPostPages();
 }
 
-/* =====================================================
-   CONFETTI & FIREWORKS
-===================================================== */
-function fireConfetti() {
-  const bursts = [
-    {count: 10, angle: 60, originX: 0},
-    {count: 12, angle: 120, originX: 1},
-    {count: 15, angle: 90, originX: 0.5},
-    {count: 12, angle: 45, originX: 0.3},
-    {count: 12, angle: 135, originX: 0.7},
-    {count: 20, angle: 90, originX: 0.5},
-  ];
-  bursts.forEach(b => confetti({particleCount: b.count, angle: b.angle, spread: 60, origin: {x: b.originX}}));
+/* ------------------------
+   CONFETTI LOGIC
+------------------------ */
+function startConfetti() {
+  const duration = 10000;
+  const end = Date.now() + duration;
+
+  (function frame() {
+    confetti({
+      particleCount: 5,
+      angle: 60,
+      spread: 55,
+      origin: { x: 0 }
+    });
+    confetti({
+      particleCount: 5,
+      angle: 120,
+      spread: 55,
+      origin: { x: 1 }
+    });
+
+    if (Date.now() < end) {
+      requestAnimationFrame(frame);
+    }
+  })();
 }
 
-function fireFireworks() {
-  for (let i = 0; i < 6; i++) {
-    createFireworkParticle(50 + i * 10);
-  }
-}
-
-function createFireworkParticle(count) {
-  const canvas = document.getElementById("fireworks");
-  const ctx = canvas.getContext("2d");
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
+/* ------------------------
+   FIREWORKS LOGIC
+------------------------ */
+function startFireworks() {
+  const fireworksCanvas = document.getElementById("fireworks");
+  const ctx = fireworksCanvas.getContext("2d");
+  fireworksCanvas.width = fireworksCanvas.offsetWidth;
+  fireworksCanvas.height = fireworksCanvas.offsetHeight;
 
   const particles = [];
-  for (let i = 0; i < count; i++) {
-    particles.push({
-      x: Math.random() * canvas.width,
-      y: canvas.height,
-      speed: Math.random() * 5 + 3,
-      angle: Math.random() * Math.PI - Math.PI / 2,
-      color: `hsl(${Math.random() * 360},100%,50%)`,
-      alpha: 1
-    });
+
+  function createParticle() {
+    const x = Math.random() * fireworksCanvas.width;
+    const y = fireworksCanvas.height;
+    const speed = Math.random() * 5 + 3;
+    const angle = Math.random() * Math.PI - Math.PI / 2;
+    const color = `hsl(${Math.random()*360},100%,50%)`;
+    particles.push({x, y, speed, angle, color, alpha:1});
   }
 
   function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (let i = particles.length - 1; i >= 0; i--) {
+    ctx.clearRect(0,0,fireworksCanvas.width, fireworksCanvas.height);
+    for (let i = particles.length-1; i>=0; i--){
       const p = particles[i];
       p.x += Math.cos(p.angle) * p.speed;
       p.y += Math.sin(p.angle) * p.speed;
@@ -146,99 +158,20 @@ function createFireworkParticle(count) {
       ctx.fillStyle = p.color;
       ctx.globalAlpha = p.alpha;
       ctx.beginPath();
-      ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+      ctx.arc(p.x, p.y, 3,0,Math.PI*2);
       ctx.fill();
-      if (p.alpha <= 0) particles.splice(i, 1);
+      if(p.alpha <=0) particles.splice(i,1);
     }
-    if (particles.length > 0) requestAnimationFrame(animate);
+    if(particles.length>0) requestAnimationFrame(animate);
   }
 
+  const fireworkInterval = setInterval(createParticle, 200);
+  setTimeout(() => clearInterval(fireworkInterval), 5000);
   animate();
 }
 
 /* =====================================================
-   GIFT BOX + CAKE ANIMATIONS
-===================================================== */
-function dropGiftBox() {
-  const gift = document.createElement("div");
-  gift.classList.add("gift-box");
-  document.body.appendChild(gift);
-  gift.style.position = "absolute";
-  gift.style.top = "-100px";
-  gift.style.left = Math.random() * window.innerWidth + "px";
-  gift.style.width = "50px";
-  gift.style.height = "50px";
-  gift.style.backgroundColor = "#ff1493";
-  gift.style.border = "2px solid #fff";
-  gift.style.borderRadius = "10px";
-  gift.style.zIndex = 999;
-
-  let topPos = -100;
-  const fallInterval = setInterval(() => {
-    topPos += 5;
-    gift.style.top = topPos + "px";
-    if (topPos > window.innerHeight - 60) {
-      clearInterval(fallInterval);
-      openGift(gift);
-    }
-  }, 20);
-}
-
-function openGift(gift) {
-  gift.style.transition = "all 0.5s ease";
-  gift.style.transform = "scale(1.5) rotate(20deg)";
-  setTimeout(() => {
-    gift.remove();
-    showCake();
-  }, 800);
-}
-
-function showCake() {
-  const cake = document.createElement("div");
-  cake.classList.add("cake");
-  document.body.appendChild(cake);
-  cake.style.position = "absolute";
-  cake.style.bottom = "0";
-  cake.style.left = "50%";
-  cake.style.transform = "translateX(-50%)";
-  cake.style.width = "100px";
-  cake.style.height = "100px";
-  cake.style.backgroundColor = "#f5deb3";
-  cake.style.borderRadius = "50% 50% 0 0";
-  cake.style.zIndex = 999;
-
-  for (let i = 0; i < 10; i++) createCakeSparkle(cake);
-}
-
-function createCakeSparkle(cake) {
-  const sparkle = document.createElement("div");
-  sparkle.classList.add("sparkle");
-  cake.appendChild(sparkle);
-  sparkle.style.position = "absolute";
-  sparkle.style.width = "5px";
-  sparkle.style.height = "5px";
-  sparkle.style.backgroundColor = "#fff";
-  sparkle.style.borderRadius = "50%";
-  sparkle.style.top = Math.random() * 100 + "px";
-  sparkle.style.left = Math.random() * 100 + "px";
-
-  let opacity = 1;
-  const sparkleInterval = setInterval(() => {
-    opacity -= 0.05;
-    sparkle.style.opacity = opacity;
-    if (opacity <= 0) {
-      clearInterval(sparkleInterval);
-      sparkle.remove();
-    }
-  }, 50);
-}
-
-function fallingGifts() {
-  for (let i = 0; i < 10; i++) setTimeout(() => dropGiftBox(), i * 500);
-}
-
-/* =====================================================
-   POST-COUNTDOWN PAGES
+   POST-COUNTDOWN PAGES LOGIC
 ===================================================== */
 const postPages = document.getElementById("post-pages");
 const nextPageBtn = document.getElementById("nextPage");
@@ -247,45 +180,46 @@ let currentPage = 0;
 
 function showPostPages() {
   postPages.classList.remove("hidden");
+  pages.forEach((p,i)=>p.classList.add("hidden"));
   pages[0].classList.remove("hidden");
-  pages[1].classList.add("hidden");
-  pages[2].classList.add("hidden");
   currentPage = 0;
 }
 
-nextPageBtn.addEventListener("click", () => {
+nextPageBtn.addEventListener("click", ()=>{
   pages[currentPage].classList.add("hidden");
-  currentPage = (currentPage + 1) % pages.length;
+  currentPage++;
+  if(currentPage >= pages.length){
+    currentPage = 0; // loop back if needed
+  }
   pages[currentPage].classList.remove("hidden");
 });
 
 /* =====================================================
-   HIDDEN CARDS + EXTRA ANIMATIONS
+   OLD HIDDEN CARDS / EXTRA ANIMATIONS
 ===================================================== */
 const oldCards = document.querySelectorAll(".old-card");
 const extraAnimationItems = document.querySelectorAll(".extra-animation-item");
 
+// Example explicit animation logic for old cards
 function revealOldCardsSequentially() {
-  oldCards.forEach((card, i) => setTimeout(() => card.style.display = "inline-block", i * 300));
+  oldCards.forEach((card, index)=>{
+    setTimeout(()=>{
+      card.style.display = "inline-block";
+    }, index * 500); // reveal one by one
+  });
 }
 
+// Example explicit animation for extra placeholders
 function animateExtraItems() {
-  extraAnimationItems.forEach((item, i) => setTimeout(() => item.style.backgroundColor = "#ff69b4", i * 200));
+  extraAnimationItems.forEach((item, index)=>{
+    setTimeout(()=>{
+      item.style.backgroundColor = "#ff69b4";
+    }, index * 300);
+  });
 }
 
-function startCelebration() {
-  fireConfetti();
-  fireFireworks();
-  fallingGifts();
+// Trigger old animations after countdown ends
+countdownInterval && setTimeout(()=>{
   revealOldCardsSequentially();
   animateExtraItems();
-  showPostPages();
-}
-
-/* =====================================================
-   INITIALIZATION
-===================================================== */
-window.addEventListener("load", () => {
-  preCountdownFireworkGlimpse();
-  startRealCountdown();
-});
+}, 0);
