@@ -123,10 +123,10 @@ let softEmitter = null;
 function startSoftEmitter() {
   if (softEmitter) return;
   softEmitter = setInterval(() => {
-    const cnt = 5 + Math.floor(Math.random() * 5);
+    const cnt = 20 + Math.floor(Math.random() * 10);
     const x = Math.random() * 0.7 + 0.15;
     spawn({ type: 'mixed', count: cnt, xMin: x - 0.08, xMax: x + 0.08, y: -0.08 });
-  }, 650);
+  }, 350);
 }
 function stopSoftEmitter() {
   if (!softEmitter) return;
