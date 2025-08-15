@@ -395,7 +395,7 @@ function startFakeRoll(){
 
       // subtle wobble
       const wobble = Math.sin(now/70) * 0.6;
-      [daysEl, hoursEl, minutesEl, secondsEl].forEach(el => el.style.transform = translateY(${wobble}px));
+      [daysEl, hoursEl, minutesEl, secondsEl].forEach(el => el.style.transform = `translateY(${wobble}px)`);
 
       if (elapsed < FAKE_DURATION) requestAnimationFrame(stepRoll);
       else {
