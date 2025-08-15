@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Countdown to 18 🎂 </title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ===== REAL + FAKE COUNTDOWN SCREEN ===== -->
+  <main id="countdownScreen" class="wrap">
+    <section class="card">
+      <h1 class="title">Counting down to your day <span>💕</span></h1>
+
+      <div class="grid">
+        <div class="unit">
+          <div id="days" class="num">0</div>
+          <div class="label">Days</div>
+        </div>
+        <div class="unit">
+          <div id="hours" class="num">00</div>
+          <div class="label">Hours</div>
+        </div>
+        <div class="unit">
+          <div id="minutes" class="num">00</div>
+          <div class="label">Minutes</div>
+        </div>
+        <div class="unit">
+          <div id="seconds" class="num">00</div>
+          <div class="label">Seconds</div>
+        </div>
+      </div>
+
+      <p id="statusLine" class="status soft">Real countdown running…</p>
+    </section>
+  </main>
+
+  <!-- ===== CELEBRATION SCREEN ===== -->
+  <section id="celebrationScreen" class="celebration" hidden>
+    <!-- looping cute cat gif in the background -->
+    <div class="cat-bg"></div>
+    <canvas id="confetti" aria-hidden="true"></canvas>
+
+    <div class="celebration-inner">
+      <h2 class="cele-title">🎉 Happy 18th Birthday papa! 🎉</h2>
+      <p class="cele-sub">Wishing you a year full of love, laughter, and magic ✨</p>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+  <noscript>This site needs JavaScript for the countdown and celebration.</noscript>
+</body>
+</html>
