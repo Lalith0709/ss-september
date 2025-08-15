@@ -13,7 +13,7 @@ body {
 }
 
 /* -----------------------------
-   Overlay styling
+   Overlay styling (pre-countdown)
 ----------------------------- */
 .overlay {
   position: fixed;
@@ -114,41 +114,6 @@ body {
 }
 
 /* -----------------------------
-   Post-countdown pages
------------------------------ */
-#post-pages {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(240,230,246,0.95);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 60;
-}
-
-.page-wrapper {
-  text-align: center;
-}
-
-.page {
-  margin-bottom: 20px;
-}
-
-button {
-  padding: 10px 25px;
-  font-size: 1em;
-  cursor: pointer;
-  border: none;
-  border-radius: 10px;
-  background: #ff7f50;
-  color: #fff;
-}
-
-/* -----------------------------
    Old hidden elements / cards
 ----------------------------- */
 #old-hidden-elements {
@@ -163,4 +128,17 @@ button {
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
   margin: 5px;
   display: inline-block;
+}
+
+/* -----------------------------
+   Buttons styling
+----------------------------- */
+button {
+  padding: 10px 25px;
+  font-size: 1em;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  background: #ff7f50;
+  color: #fff;
 }
