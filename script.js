@@ -51,7 +51,7 @@ function startConfetti() {
   setInterval(() => {
     confetti({
       particleCount: 450,
-      spread: 100,
+      spread: 200,
       origin: { y: 0 }
     });
   }, 650);
@@ -64,13 +64,13 @@ function startFireworks() {
     confetti({
       particleCount: 450,
       angle: 60,
-      spread: 100,
+      spread: 200,
       origin: { x: 0 }
     });
     confetti({
       particleCount: 450,
       angle: 120,
-      spread: 100,
+      spread: 200,
       origin: { x: 1 }
     });
     if (Date.now() < end) {
