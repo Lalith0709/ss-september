@@ -1,56 +1,65 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Countdown to 18 🎂 </title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy 18th — Srujana</title>
+  <link href="style.css" rel="stylesheet" />
 </head>
 <body>
-  <!-- ===== REAL + FAKE COUNTDOWN SCREEN ===== -->
+  <!-- COUNTDOWN SCREEN -->
   <main id="countdownScreen" class="wrap">
     <section class="card">
-      <h1 class="title">Counting down to your day <span>💕</span></h1>
+      <h1 class="title">Your Special Day is Almost Here <span>💕</span></h1>
 
-      <div class="grid">
-        <div class="unit">
+      <div class="counter-row">
+        <div class="counter unit">
           <div id="days" class="num">0</div>
           <div class="label">Days</div>
         </div>
-        <div class="unit">
+        <div class="counter unit">
           <div id="hours" class="num">00</div>
           <div class="label">Hours</div>
         </div>
-        <div class="unit">
+        <div class="counter unit">
           <div id="minutes" class="num">00</div>
           <div class="label">Minutes</div>
         </div>
-        <div class="unit">
+        <div class="counter unit">
           <div id="seconds" class="num">00</div>
           <div class="label">Seconds</div>
         </div>
       </div>
 
+      <div class="quote">
+        <p id="quoteText">Just a little more… A small gift for my favorite person ❤️</p>
+        <div class="dots">
+          <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+      </div>
       <p id="statusLine" class="status soft">Real countdown running…</p>
     </section>
+
+    <!-- soft floating hearts/circles background (decorative) -->
+    <ul class="floaters" aria-hidden="true">
+      <li></li><li></li><li></li><li></li><li></li>
+      <li></li><li></li><li></li><li></li><li></li>
+    </ul>
   </main>
 
-  <!-- ===== CELEBRATION SCREEN ===== -->
+  <!-- CELEBRATION SCREEN -->
   <section id="celebrationScreen" class="celebration" hidden>
-    <!-- looping cute cat gif in the background -->
-    <div class="cat-bg"></div>
-    <canvas id="confetti" aria-hidden="true"></canvas>
+    <div class="cat-bg" aria-hidden="true"></div>
+
+    <!-- confetti canvas (shared) -->
+    <canvas id="confettiCanvas" aria-hidden="true"></canvas>
 
     <div class="celebration-inner">
-      <h2 class="cele-title">🎉 Happy 18th Birthday papa! 🎉</h2>
-      <p class="cele-sub">Wishing you a year full of love, laughter, and magic ✨</p>
+      <h2 class="cele-title">🎉 Happy 18th Birthday, Srujana! 🎉</h2>
+      <p class="cele-sub">Wishing you a year full of love, laughter and magic ✨</p>
     </div>
   </section>
 
   <script src="script.js"></script>
-  <noscript>This site needs JavaScript for the countdown and celebration.</noscript>
 </body>
 </html>
