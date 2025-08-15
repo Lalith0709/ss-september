@@ -1,35 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Srujana 🎉</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday!</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-    <!-- Countdown Container -->
-    <div id="countdown-container">
-        <h1 id="countdown-title">Your Special Day is Almost Here💕</h1>
-        <div id="countdown">
-            <div class="time-box"><span id="days">0</span><label>Days</label></div>
-            <div class="time-box"><span id="hours">0</span><label>Hours</label></div>
-            <div class="time-box"><span id="minutes">0</span><label>Minutes</label></div>
-            <div class="time-box"><span id="seconds">0</span><label>Seconds</label></div>
-        </div>
-        <p id="countdown-msg">Just a little more... A small gift for my favorite person❤️</p>
+  <!-- Countdown -->
+  <div id="countdown-container">
+    <h1 id="countdown-title">Your Special Day is Almost Here 💕</h1>
+    <div id="countdown">
+      <div><span id="days">0</span><p>Days</p></div>
+      <div><span id="hours">0</span><p>Hours</p></div>
+      <div><span id="minutes">0</span><p>Minutes</p></div>
+      <div><span id="seconds">0</span><p>Seconds</p></div>
     </div>
+  </div>
 
-    <!-- Rocket -->
-    <div id="rocket">🚀</div>
+  <!-- Heart Animation -->
+  <div id="heart"></div>
 
-    <!-- Heart -->
-    <div id="heart">❤️</div>
+  <!-- Birthday Card -->
+  <div id="message-card" class="hidden">
+    <h1>🎂✨💖 Happy Birthday! 💖✨🎂</h1>
+    <h2>To My Cutiepie</h2>
+    <p>Just wanted to remind you—you’re my favorite person. My days are better, smiles are wider, and life is sweeter because of you.</p>
+    <p>I hope your birthday is full of 💖 magic, and everything that makes you smile ❤️</p>
+    <p>May every wish you make today come true. You deserve the world, and I’ll always be here to remind you of that.</p>
+    <p>Let’s always stay like this… together, forever 💫</p>
+  </div>
 
-    <!-- Message Card -->
-    <div id="messageCard">Click here to get your message 💌</div>
+  <!-- Confetti + Fireworks Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+  <canvas id="fireworks-canvas"></canvas>
 
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <script src="script.js"></script>
+  <!-- Confetti & Fireworks Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
