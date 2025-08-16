@@ -52,7 +52,7 @@ if (today >= targetDate) {
     }
 
     function animate() {
-        ctx.fillStyle = 'rgba(0,0,0,0.1)';
+        ctx.fillStyle = '#f2c4e0c7';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         for (let i = 0; i < particles.length; i++) {
