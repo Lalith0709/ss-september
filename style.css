@@ -29,46 +29,33 @@ body {
   display: block;
 }
 
-#heart {
+.rocket {
   position: absolute;
+  bottom: 0;
   left: 50%;
-  top: 40%;
-  transform: translate(-50%, -50%) scale(0);
-  width: 100px;
-  height: 90px;
-  background: #fe2190;
-  transform: translate(-50%, -50%) rotate(-45deg) scale(0);
-  animation: none;
+  width: 6px;
+  height: 20px;
+  background: #fff;
+  transform: translateX(-50%);
+  animation: launch 3s ease-out forwards;
 }
 
-#heart::before,
-#heart::after {
-  content: "";
+@keyframes launch {
+  from { bottom: 0; opacity: 1; }
+  to   { bottom: 50%; opacity: 0; } /* rocket disappears at mid-screen */
+}
+
+.firework {
   position: absolute;
-  width: 100px;
-  height: 90px;
-  background: #fe2190;
-  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  animation: appear 5s linear 2s forwards; /* delay until rocket is gone */
 }
 
-#heart::before {
-  top: -50px;
-  left: 0;
-}
-
-#heart::after {
-  left: 50px;
-  top: 0;
-}
-
-@keyframes popHeart {
-  0% { transform: translate(-50%, -50%) rotate(-45deg) scale(0); }
-  50% { transform: translate(-50%, -50%) rotate(-45deg) scale(1.2); }
-  100% { transform: translate(-50%, -50%) rotate(-45deg) scale(1); }
-}
-
-#heart {
-  animation: popHeart 1s ease forwards;
+@keyframes appear {
+  to { opacity: 1; }
 }
 
 #message-card {
