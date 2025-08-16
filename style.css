@@ -89,7 +89,7 @@ body {
 .bubble {
   position: fixed;
   bottom: -50px;
-  background: rgba(243, 3, 139, 0.6);
+  background: rgba(243, 3, 167, 0.975);
   border-radius: 50%;
   pointer-events: none;
   animation: fall 6s linear infinite;
