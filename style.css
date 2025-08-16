@@ -30,16 +30,45 @@ body {
 }
 
 #heart {
-  width: 100px;
-  height: 90px;
   position: absolute;
   left: 50%;
   top: 40%;
   transform: translate(-50%, -50%) scale(0);
-  background: transparent;
-  border: 4px dotted #fe2190;
-  border-radius: 50%;
+  width: 100px;
+  height: 90px;
+  background: #fe2190;
+  transform: translate(-50%, -50%) rotate(-45deg) scale(0);
   animation: none;
+}
+
+#heart::before,
+#heart::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 90px;
+  background: #fe2190;
+  border-radius: 50%;
+}
+
+#heart::before {
+  top: -50px;
+  left: 0;
+}
+
+#heart::after {
+  left: 50px;
+  top: 0;
+}
+
+@keyframes popHeart {
+  0% { transform: translate(-50%, -50%) rotate(-45deg) scale(0); }
+  50% { transform: translate(-50%, -50%) rotate(-45deg) scale(1.2); }
+  100% { transform: translate(-50%, -50%) rotate(-45deg) scale(1); }
+}
+
+#heart {
+  animation: popHeart 1s ease forwards;
 }
 
 #message-card {

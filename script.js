@@ -36,9 +36,9 @@ function fakeCountdown(callback) {
 
 function showHeart(callback) {
   const heart = document.getElementById("heart");
-  heart.style.animation = "scaleUp 3s forwards";
+  heart.style.animation = "scaleUp 5s forwards";
   setTimeout(() => {
-    heart.style.animation = "fadeOut 1s forwards";
+    heart.style.animation = "fadeOut 2s forwards";
     setTimeout(callback, 1000);
   }, 3000);
 }
@@ -50,7 +50,7 @@ function showMessageCard() {
 function startConfetti() {
   setInterval(() => {
     confetti({
-      particleCount: 450,
+      particleCount: 3000,
       spread: 200,
       origin: { y: 0 }
     });
@@ -62,16 +62,20 @@ function startFireworks() {
   let end = Date.now() + duration;
   (function frame() {
     confetti({
-      particleCount: 450,
+      particleCount: 300,
       angle: 60,
       spread: 200,
-      origin: { x: 0 }
+      origin: { x: 0 },
+      emojis: ["❤️"], //insted of circles, use heart emoji
+      scalar: 2         //size multiplier for emoji
     });
     confetti({
-      particleCount: 450,
+      particleCount: 300,
       angle: 120,
       spread: 200,
-      origin: { x: 1 }
+      origin: { x: 1 },
+      emojis:["❤️"],
+      scalar: 2
     });
     if (Date.now() < end) {
       requestAnimationFrame(frame);
