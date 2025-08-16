@@ -2,12 +2,12 @@ body, html {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: black;
+    background-color:  #f2c4e0c7;
 }
 
 canvas {
     display: block;
     border: 5px solid pink;
-    box-shadow: 0 0 20px pink, 0 0 40px hotpink, 0 0 60px deeppink;
+    box-shadow: 0 0 20px pink, 0 0 40px rgb(235, 30, 132), 0 0 60px deeppink;
     border-radius: 20px;
 }
