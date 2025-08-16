@@ -1,5 +1,5 @@
 body {
-  background: linear-gradient(to bottom, #f797d1c7, #ffccf2);
+  background: linear-gradient(to bottom, #f2c4e0c7, #f2c4e0c7);
   margin: 0;
   overflow: hidden;
   font-family: 'Comic Sans MS', cursive;
@@ -47,7 +47,7 @@ body {
   top: 15%;
   left: 50%;
   transform: translateX(-50%);
-  background: rgb(243, 156, 224);
+  background: rgb(252, 140, 190);
   border-radius: 20px;
   padding: 20px;
   width: 80%;
