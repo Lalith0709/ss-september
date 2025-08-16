@@ -84,3 +84,20 @@ body {
 @keyframes fadeOut {
   to { opacity: 0; }
 }
+
+/*buble effect styles */
+.bubble {
+  position: fixed;
+  bottom: -50px;
+  background: rgba(243, 3, 139, 0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: rise linear forwards;
+}
+
+@keyframes rise {
+  to {
+    transform: translateY(-110vh);
+    opacity: 0;
+  }
+}
