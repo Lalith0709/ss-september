@@ -92,12 +92,16 @@ body {
   background: rgba(243, 3, 139, 0.6);
   border-radius: 50%;
   pointer-events: none;
-  animation: rise linear forwards;
+  animation: fall 6s linear infinite;
 }
 
-@keyframes rise {
-  to {
-    transform: translateY(-110vh);
+@keyframes fall {
+  0% {
+    top: -50px; /* start above the screen */
+    opacity: 1;
+  }
+  100% {
+    top: 100vh; /* fall till bottom */
     opacity: 0;
   }
 }
