@@ -1,0 +1,13 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: black;
+}
+
+canvas {
+    display: block;
+    border: 5px solid pink;
+    box-shadow: 0 0 20px pink, 0 0 40px hotpink, 0 0 60px deeppink;
+    border-radius: 20px;
+}
