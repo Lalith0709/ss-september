@@ -17,4 +17,8 @@ function createBubble() {
   }, 6000);
 }
 
-setInterval(createBubble, 500);
+setInterval(() => {
+for (let i = 0; i< 3; i++) {  
+    createBubble();
+}
+}, 100);
