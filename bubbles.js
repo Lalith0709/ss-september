@@ -6,7 +6,7 @@ function createBubble() {
   // random horizontal position
   bubble.style.left = Math.random() * 100 + "vw";
   // random size
-  bubble.style.width = bubble.style.height = Math.random() * 40 + 20 + "px";
+  bubble.style.width = bubble.style.height = Math.random() * 10 + 10 + "px";
   // random animation duration
   bubble.style.animationDuration = Math.random() * 3 + 2 + "s";
 
@@ -14,7 +14,7 @@ function createBubble() {
 
   setTimeout(() => {
     bubble.remove();
-  }, 5000);
+  }, 6000);
 }
 
-setInterval(createBubble, 300);
+setInterval(createBubble, 500);
