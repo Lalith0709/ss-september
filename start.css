@@ -14,7 +14,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #fcd7e1;
+  background-color: #f89ae2;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,7 +22,7 @@ body {
 }
 
 #message-box {
-  background-color: #ffe0eb; /* slightly lighter pink */
+  background-color: #ff8eb5; /* slightly lighter pink */
   padding: 30px 50px;
   border-radius: 20px;
   text-align: center;
@@ -32,7 +32,7 @@ body {
 #start-btn {
   margin-top: 20px;
   padding: 15px 30px;
-  background-color: #ff5aa5; /* dark pink */
+  background-color: #ed046d; /* dark pink */
   color: white;
   font-weight: bold;
   border-radius: 15px;
@@ -44,21 +44,44 @@ body {
   transform: scale(1.1);
 }
 
-/* Floating Hearts Background */
-.floating-heart {
+floating-heart {
   position: absolute;
-  width: 15px;
-  height: 15px;
-  background-color: #ff5aa5; /* dark pink */
-  border-radius: 50%;
-  opacity: 0.7;
-  animation: floatHeart 8s linear infinite;
+  width: 20px;
+  height: 20px;
+  background: rgb(237, 6, 141);
+  transform: rotate(-45deg);
+  animation: float 6s linear infinite;
 }
 
-@keyframes floatHeart {
-  0% { transform: translateY(100vh) translateX(0) scale(1); opacity: 0.7; }
-  50% { transform: translateY(50vh) translateX(30px) scale(1.2); opacity: 1; }
-  100% { transform: translateY(-10vh) translateX(-30px) scale(0.8); opacity: 0; }
+.floating-heart::before,
+.floating-heart::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: rgb(230, 9, 186);
+  border-radius: 50%;
+}
+
+.floating-heart::before {
+  top: -10px;
+  left: 0;
+}
+
+.floating-heart::after {
+  left: 10px;
+  top: 0;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(-45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-200px) rotate(-45deg);
+    opacity: 0;
+  }
 }
 
 /* Hide main site initially */

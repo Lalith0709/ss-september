@@ -6,6 +6,11 @@ const mainSite = document.getElementById('main-site');
 startBtn.addEventListener('click', () => {
   startScreen.style.display = 'none';
   mainSite.classList.remove('hidden');
+
+  // now trigger all effects here//
+  createFloatingHearts();
+  startCountdown();
+  startConfetti();
 });
 
 // Floating hearts effect in start screen
@@ -18,6 +23,15 @@ function createFloatingHearts() {
     heart.style.width = heart.style.height = (10 + Math.random()*15) + 'px';
     startScreen.appendChild(heart);
   }
+}
+
+// Example placeholders
+function startCountdown() {
+  console.log("Countdown started!");
+}
+
+function startConfetti() {
+  console.log("Confetti started!");
 }
 
 createFloatingHearts();
