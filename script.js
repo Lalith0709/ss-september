@@ -39,8 +39,8 @@ function showHeart(callback) {
   heart.style.animation = "scaleUp 1s forwards";
   setTimeout(() => {
     heart.style.animation = "fadeOut 0.4s forwards";
-    setTimeout(callback, 1000);
-  }, 3000);
+    setTimeout(callback, 500);
+  }, 300);
 }
 
 function showMessageCard() {
