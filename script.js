@@ -1,4 +1,4 @@
-const birthdayDate = new Date("2025-09-07T00:00:00").getTime();
+const birthdayDate = new Date("September 7, 2025 00:00:00").getTime();
 
 function startCountdown(targetDate, callback) {
   let timer = setInterval(() => {
@@ -25,7 +25,7 @@ function fakeCountdown(callback) {
       clearInterval(interval);
       callback();
     } else {
-      sec = sec - 1;
+      sec--;
     }
     document.getElementById("days").innerText = days;
     document.getElementById("hours").innerText = hrs;
