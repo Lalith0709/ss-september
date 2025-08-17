@@ -19,7 +19,7 @@ function startCountdown(targetDate, callback) {
 }
 
 function fakeCountdown(callback) {
-  let days = 0, hrs = 0, min = 0, sec = 5; // short fake countdown for demo
+  let days = 0, hrs = 0, min = 0, sec = 15; // short fake countdown for demo
   let interval = setInterval(() => {
     if (days <= 0 && hrs <= 0 && min <= 0 && sec <= 0) {
       clearInterval(interval);
