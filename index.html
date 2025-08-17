@@ -5,8 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Birthday!</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="start.css" />
 </head>
 <body>
+  !-- ================= Initial Start Box ================= -->
+  <div id="start-screen">
+    <div id="message-box">
+      <p id="welcome-msg">Hey Srujana! I have a little surprise for you 💖</p>
+      <div id="start-btn">Start 🎉</div>
+    </div>
+  </div>
   <!-- Countdown -->
   <div id="countdown-container">
     <h1 id="countdown-title"> Hey Srujana happy birthday papa 💕</h1>
@@ -51,6 +59,7 @@ You deserve so much more... regards your guy Lalith 🥰</p>
   <!-- Confetti + Fireworks Canvas -->
   <canvas id="confetti-canvas"></canvas>
   <canvas id="fireworks-canvas"></canvas>
+  <canvas id="heartCanvas"></canvas>
 
   <!-- Confetti & Fireworks Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
