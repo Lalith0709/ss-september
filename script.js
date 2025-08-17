@@ -27,10 +27,10 @@ function fakeCountdown(callback) {
     } else {
       sec--;
     }
-    document.getElementById("days").innerText = Days;
-    document.getElementById("hours").innerText = Hours;
-    document.getElementById("minutes").innerText = Minutes;
-    document.getElementById("seconds").innerText = Seconds;
+    document.getElementById("days").innerText = days;
+    document.getElementById("hours").innerText = hrs;
+    document.getElementById("minutes").innerText = min;
+    document.getElementById("seconds").innerText = sec;
   }, 1000);
 }
 
