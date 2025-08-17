@@ -14,7 +14,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #f89ae2;
+  background-color: #f2c4e0c7, ;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,7 +22,7 @@ body {
 }
 
 #message-box {
-  background-color: #ff8eb5; /* slightly lighter pink */
+  background-color: #f8f5f619; /* slightly lighter pink */
   padding: 30px 50px;
   border-radius: 20px;
   text-align: center;
