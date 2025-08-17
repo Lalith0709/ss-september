@@ -51,7 +51,7 @@ function startConfetti() {
   setInterval(() => {
     confetti({
       particleCount: 50,
-      spread: 200,
+      spread: 100,
       origin: { y: 0 }
     });
   }, 350);
@@ -64,7 +64,7 @@ function startFireworks() {
     confetti({
       particleCount: 50,
       angle: 60,
-      spread: 200,
+      spread: 100,
       origin: { x: 0 },
       emojis: ["❤️"], //insted of circles, use heart emoji
       scalar: 2         //size multiplier for emoji
@@ -72,7 +72,7 @@ function startFireworks() {
     confetti({
       particleCount: 50,
       angle: 120,
-      spread: 200,
+      spread: 100,
       origin: { x: 1 },
       emojis:["❤️"],
       scalar: 2
