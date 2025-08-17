@@ -25,7 +25,7 @@ function fakeCountdown(callback) {
       clearInterval(interval);
       callback();
     } else {
-      sec--;
+      sec = sec - 1;
     }
     document.getElementById("days").innerText = days;
     document.getElementById("hours").innerText = hrs;
