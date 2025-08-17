@@ -58,7 +58,7 @@ function startConfetti() {
 }
 
 function startFireworks() {
-  let duration = 2 * 1000;
+  let duration = 1 * 1000;
   let end = Date.now() + duration;
   (function frame() {
     confetti({
