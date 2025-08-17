@@ -48,7 +48,7 @@ floating-heart {
   position: absolute;
   width: 20px;
   height: 20px;
-  background: rgb(237, 6, 141);
+  background: rgb(245, 193, 223);
   transform: rotate(-45deg);
   animation: float 6s linear infinite;
 }
@@ -59,7 +59,7 @@ floating-heart {
   position: absolute;
   width: 20px;
   height: 20px;
-  background: rgb(230, 9, 186);
+  background: rgb(248, 200, 238);
   border-radius: 50%;
 }
 
