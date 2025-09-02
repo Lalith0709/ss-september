@@ -19,6 +19,7 @@ body {
 .cake {
   position: relative;
   width: 200px;
+  height: 200px;
   margin: auto;
 }
 
@@ -93,6 +94,15 @@ button:hover {
 }
 
 #fireworks {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+/* Confetti Canvas */
+#confetti {
   position: fixed;
   top: 0;
   left: 0;
