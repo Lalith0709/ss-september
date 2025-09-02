@@ -1,53 +1,109 @@
-#cake-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+/* Cake Section */
+#cake-section {
+  text-align: center;
+  margin-top: 40px;
   position: relative;
-  margin-top: 30px;
 }
 
-#cake {
+.cake {
   position: relative;
-  width: 200px;
-  height: 150px;
-  background: #ff6f61;
-  border-radius: 0 0 20px 20px;
-  overflow: hidden;
+  display: inline-block;
   margin-bottom: 20px;
 }
 
-.slice {
-  position: absolute;
-  top: 0;
-  width: 50%;
-  height: 100%;
-  background: #ff8a65;
-  transform-origin: center bottom;
-  transition: transform 1s ease;
+.layer {
+  width: 200px;
+  height: 80px;
+  background: #ff4d6d;
+  border-radius: 10px;
+  margin: auto;
+  position: relative;
 }
 
-.left { left: 0; }
-.right { right: 0; }
+.layer.bottom {
+  box-shadow: 0 10px #d43f5c;
+}
 
-#cutButton {
+.layer.top {
+  width: 150px;
+  height: 70px;
+  margin-top: -40px;
+  background: #ff4d6d;
+  border-radius: 10px;
+  box-shadow: 0 8px #d43f5c;
+  z-index: 2;
+  position: relative;
+}
+
+.icing {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  z-index: 3;
+}
+
+.candle {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 15px;
+  height: 50px;
+  background: white;
+  border: 2px solid #333;
+  z-index: 4;
+}
+
+.flame {
+  width: 12px;
+  height: 18px;
+  background: orange;
+  border-radius: 50% 50% 50% 50%;
+  margin: auto;
+  animation: flicker 0.3s infinite alternate;
+}
+
+@keyframes flicker {
+  from { transform: scale(1); background: orange; }
+  to { transform: scale(1.2); background: yellow; }
+}
+
+/* Buttons */
+.buttons {
+  margin-top: 20px;
+}
+.buttons button {
   padding: 10px 20px;
+  margin: 5px;
   font-size: 16px;
   cursor: pointer;
 }
 
-#fireworks {
+/* Knife */
+#knife {
   position: absolute;
+  width: 120px;
+  height: 20px;
+  background: silver;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%) rotate(0deg);
+  display: none;
+  z-index: 5;
+  border: 2px solid #333;
+}
+
+/* Fireworks Canvas */
+#fireworksCanvas {
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
-}
-
-#showCakeBtn {
-  padding: 10px 20px;
-  font-size: 16px;
-  margin-top: 20px;
-  cursor: pointer;
 }
