@@ -1,4 +1,3 @@
-/* ===== General Page Styles ===== */
 body {
   margin: 0;
   padding: 0;
@@ -35,87 +34,50 @@ h1 {
   position: absolute;
   bottom: -10px;
   left: -10px;
-  box-shadow: inset 0 4px rgba(255,255,255,0.6),
-              0 6px 12px rgba(0,0,0,0.2);
 }
 
-/* ===== Improved Cake Layers ===== */
 .layer {
   position: absolute;
   width: 200px;
-  height: 60px;
-  border-radius: 12px;
+  height: 50px;
+  border-radius: 10px;
   left: 0;
-  box-shadow: inset 0 -6px rgba(0, 0, 0, 0.15),
-              0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Bottom chocolate */
 .layer-bottom {
   bottom: 0;
-  background: linear-gradient(to top, #8b4513, #a0522d);
+  background: #d2691e;
 }
 
-/* Middle caramel */
 .layer-middle {
-  bottom: 60px;
-  background: linear-gradient(to top, #d2691e, #f4a460);
+  bottom: 50px;
+  background: #f4a460;
 }
 
-/* Top strawberry */
 .layer-top {
-  bottom: 120px;
-  background: linear-gradient(to top, #ff69b4, #ffb6c1);
-  position: relative;
-  overflow: hidden;
+  bottom: 100px;
+  background: #ffb6c1;
 }
 
-/* Dripping icing on top layer */
-.layer-top::after {
-  content: "";
-  position: absolute;
-  top: -15px;
-  left: 0;
-  width: 100%;
-  height: 30px;
-  background: radial-gradient(circle at 10% 30%, #fff 25%, transparent 26%),
-              radial-gradient(circle at 30% 20%, #fff 25%, transparent 26%),
-              radial-gradient(circle at 50% 35%, #fff 25%, transparent 26%),
-              radial-gradient(circle at 70% 20%, #fff 25%, transparent 26%),
-              radial-gradient(circle at 90% 30%, #fff 25%, transparent 26%);
-  background-size: 40px 40px;
-  background-repeat: repeat-x;
-}
-
-/* ===== Candle ===== */
 .candle {
   position: absolute;
   width: 20px;
   height: 60px;
+  background: #fff;
   left: 90px;
-  bottom: 180px;
+  bottom: 150px;
   border-radius: 5px;
-  background: repeating-linear-gradient(
-    45deg,
-    #fff,
-    #fff 8px,
-    #ff6347 8px,
-    #ff6347 16px
-  );
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
 }
 
-/* ===== Flame ===== */
 .flame {
-  width: 18px;
-  height: 28px;
-  background: radial-gradient(circle at 50% 60%, #ffec85 30%, #ffae34 70%, transparent 100%);
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  position: relative;
-  top: -30px;
+  width: 15px;
+  height: 25px;
+  background: radial-gradient(circle, yellow 60%, orange 80%, transparent 100%);
+  border-radius: 50%;
   margin: auto;
+  position: relative;
+  top: -25px;
   animation: flicker 0.3s infinite alternate;
-  box-shadow: 0 0 20px 6px rgba(255, 200, 0, 0.7);
 }
 
 @keyframes flicker {
@@ -123,20 +85,17 @@ h1 {
   to { transform: scale(1.2) rotate(5deg); }
 }
 
-/* ===== Slice (when cut) ===== */
 .slice {
   position: absolute;
   width: 60px;
   height: 50px;
-  background: linear-gradient(to top, #ff69b4, #ffb6c1);
-  border-radius: 8px;
-  bottom: 120px;
+  background: #ffb6c1;
+  border-radius: 10px;
+  bottom: 100px;
   left: 70px;
   display: none;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-/* ===== Buttons ===== */
 .buttons {
   margin-top: 20px;
 }
@@ -162,7 +121,6 @@ button:hover:enabled {
   transform: scale(1.1);
 }
 
-/* ===== Confetti ===== */
 canvas#confetti {
   position: fixed;
   top: 0;
