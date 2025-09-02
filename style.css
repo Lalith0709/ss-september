@@ -121,3 +121,24 @@ body {
     opacity: 0;
   }
 }
+  .next-button {
+  text-align: center;
+  margin-top: 30px;
+}
+
+#continueBtn {
+  background: linear-gradient(45deg, #ff66b2, #ffcc00);
+  color: white;
+  border: none;
+  padding: 15px 25px;
+  font-size: 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+#continueBtn:hover {
+  background: linear-gradient(45deg, #ffcc00, #ff66b2);
+  transform: scale(1.05);
+}

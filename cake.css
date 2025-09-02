@@ -1,116 +1,100 @@
 body {
-  background: #111;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, #ffdde1, #ee9ca7);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  margin: 0;
-  color: white;
-  font-family: Arial, sans-serif;
+  font-family: "Poppins", sans-serif;
+  overflow: hidden;
 }
 
-#cake-container {
-  position: relative;
+.container {
   text-align: center;
 }
 
-#cake {
+.title {
+  font-size: 2.5rem;
+  color: #fff;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 5px #ff4081;
+}
+
+.cake {
   position: relative;
   width: 200px;
-  height: 150px;
-  margin: 0 auto;
+  height: 200px;
+  margin: auto;
+}
+
+.plate {
+  width: 220px;
+  height: 30px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  left: -10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
 .layer {
   width: 200px;
   height: 60px;
-  background: #d2691e;
-  border-radius: 10px;
+  background: #ff99cc;
+  border-radius: 15px;
   position: absolute;
   left: 0;
 }
 
-.layer.bottom {
-  bottom: 0;
-}
-
-.layer.top {
-  bottom: 60px;
-}
+.layer-bottom { bottom: 30px; }
+.layer-middle { bottom: 80px; background: #ff80b3; }
+.layer-top { bottom: 130px; background: #ff6699; }
 
 .icing {
   width: 200px;
-  height: 20px;
-  background: pink;
-  border-radius: 10px;
+  height: 30px;
+  background: #fff;
+  border-radius: 50% / 30%;
   position: absolute;
+  bottom: 160px;
   left: 0;
 }
 
-.icing.bottom {
-  bottom: 60px;
-}
-
-.icing.top {
-  bottom: 120px;
-}
-
-#candle {
+.candle {
   width: 20px;
   height: 60px;
-  background: white;
+  background: #ff0;
   position: absolute;
-  bottom: 140px;
+  bottom: 190px;
   left: 90px;
   border-radius: 5px;
 }
 
 .flame {
   width: 15px;
-  height: 15px;
-  background: orange;
+  height: 25px;
+  background: radial-gradient(ellipse at center, #ff0 0%, #ff6600 80%);
   border-radius: 50%;
   position: absolute;
-  top: -20px;
-  left: 2.5px;
-  animation: flicker 0.3s infinite alternate;
+  top: -25px;
+  left: 2px;
+  animation: flicker 1s infinite;
 }
 
 @keyframes flicker {
-  from { transform: scale(1); opacity: 1; }
-  to { transform: scale(1.2); opacity: 0.7; }
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
-button {
-  margin: 15px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  background: #ff4081;
-  color: white;
-  transition: background 0.3s;
-}
-
-button:hover {
-  background: #e91e63;
-}
-
-#knife {
-  width: 100px;
-  height: 10px;
-  background: silver;
-  position: absolute;
-  top: 50px;
-  left: -150px;
-  border-radius: 5px;
-  transform: rotate(20deg);
-  display: none;
-}
-
-#fireworks {
-  position: absolute;
+/* Confetti Canvas */
+#confetti {
+  position: fixed;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }

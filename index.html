@@ -6,7 +6,6 @@
   <title>Happy Birthday papa!</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="start.css" />
-  <link rel="stylesheet" href="cake.css" />
 </head>
 <body>
   <!-- ================= Initial Start Box ================= -->
@@ -63,29 +62,11 @@ this guy is just a msg away just hit me up💖
 
 You deserve so much more... regards your guy Lalith 🥰</p>
 
-
-  <!-- Cake Container -->
-  <div id="cake-container">
-    <div id="cake">
-      <div class="layer bottom"></div>
-      <div class="layer top"></div>
-      <div class="icing bottom"></div>
-      <div class="icing top"></div>
-      <div id="candle">
-        <div class="flame"></div>
-      </div>
-    </div>
-
-    <!-- Buttons -->
-    <button id="blowBtn">Blow Candle 🎂</button>
-    <button id="cutBtn" style="display:none;">Cut Cake 🔪</button>
-
-    <!-- Knife -->
-    <div id="knife"></div>
-
-    <!-- Fireworks Canvas -->
-    <canvas id="fireworks"></canvas>
+<!-- Continue Button -->
+  <div class="next-button">
+    <button id="continueBtn">🎉 Continue to Next Surprise 🎉</button>
   </div>
+</div>
 
   </div
   <!-- Confetti + Fireworks Canvas -->
@@ -99,6 +80,12 @@ You deserve so much more... regards your guy Lalith 🥰</p>
   <script src="script.js"></script>
   <script src="bubbles.js"></script>
     <script src="heart.js"></script>
-    <script src="cake.js"></script>
+
+    <script>
+  document.getElementById("continueBtn").addEventListener("click", function () {
+    window.location.href = "cake.html"; // go to cake page
+  });
+</script>
+
 </body>
 </html>
