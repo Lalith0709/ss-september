@@ -1,0 +1,53 @@
+#cake-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-top: 30px;
+}
+
+#cake {
+  position: relative;
+  width: 200px;
+  height: 150px;
+  background: #ff6f61;
+  border-radius: 0 0 20px 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.slice {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background: #ff8a65;
+  transform-origin: center bottom;
+  transition: transform 1s ease;
+}
+
+.left { left: 0; }
+.right { right: 0; }
+
+#cutButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#fireworks {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+#showCakeBtn {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-top: 20px;
+  cursor: pointer;
+}
