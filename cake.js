@@ -55,7 +55,7 @@ for (let i = 0; i < 200; i++) {
     y: Math.random() * confettiCanvas.height,
     r: Math.random() * 6 + 2,
     d: Math.random() * 200 + 10,
-    color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+    color:`hsl(${Math.random() * 360}, 100%, 50%)`,
     tilt: Math.random() * 10 - 10
   });
 }
