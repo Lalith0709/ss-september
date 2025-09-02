@@ -7,26 +7,23 @@
   <link rel="stylesheet" href="cake.css">
 </head>
 <body>
-  <div class="cake-container">
+  <div class="container">
+    <h1>🎂 Happy Birthday! 🎂</h1>
     <div class="cake">
-      <div class="layer top"></div>
-      <div class="layer middle"></div>
-      <div class="layer bottom"></div>
-      <div class="candles">
-        <div class="candle"><div class="flame"></div></div>
-        <div class="candle"><div class="flame"></div></div>
-        <div class="candle"><div class="flame"></div></div>
+      <div class="plate"></div>
+      <div class="layer layer-bottom"></div>
+      <div class="layer layer-middle"></div>
+      <div class="layer layer-top"></div>
+      <div class="candle">
+        <div class="flame"></div>
       </div>
     </div>
+    <div class="buttons">
+      <button id="blowBtn">Blow Candle 🕯️</button>
+      <button id="cutBtn" disabled>Cut Cake 🔪</button>
+    </div>
+    <canvas id="confetti"></canvas>
   </div>
-
-  <div class="buttons">
-    <button id="blowBtn">Blow Candles</button>
-    <button id="cutBtn">Cut Cake</button>
-  </div>
-
-  <canvas id="fireworks"></canvas>
-
   <script src="cake.js"></script>
 </body>
 </html>

@@ -1,129 +1,90 @@
+// Flame blowing and cake cutting logic
 const blowBtn = document.getElementById("blowBtn");
 const cutBtn = document.getElementById("cutBtn");
-const flames = document.querySelectorAll(".flame");
-const fireworksCanvas = document.getElementById("fireworks");
-const ctx = fireworksCanvas.getContext("2d");
+const flame = document.querySelector(".flame");
+const cake = document.querySelector(".cake");
 
-fireworksCanvas.width = window.innerWidth;
-fireworksCanvas.height = window.innerHeight;
-
-// Blow candles
 blowBtn.addEventListener("click", () => {
-  flames.forEach(f => {
-    f.style.animation = "fadeOut 1s forwards";
-  });
+  flame.style.animation = "fadeOut 1s forwards";
+  setTimeout(() => {
+    flame.style.display = "none";
+    blowBtn.disabled = true;
+    cutBtn.disabled = false;
+  }, 1000);
 });
 
+// Cake cutting + feeding slice
+cutBtn.addEventListener("click", () => {
+  const slice = document.createElement("div");
+  slice.classList.add("slice");
+  cake.appendChild(slice);
+  slice.style.display = "block";
+
+  // Animate slice coming forward (feeding you)
+  slice.animate(
+    [
+      { transform: "translateY(0) scale(1)" },
+      { transform: "translateY(-150px) scale(1.2)" },
+      { transform: "translateY(-200px) scale(1.5)" }
+    ],
+    { duration: 2000, fill: "forwards" }
+  );
+
+  cutBtn.disabled = true;
+});
+
+// Add candle flame fade out keyframes
 const style = document.createElement("style");
 style.innerHTML = `
 @keyframes fadeOut {
-  to { opacity: 0; transform: scale(0); }
+  from { opacity: 1; }
+  to { opacity: 0; }
 }`;
 document.head.appendChild(style);
 
-// Cut cake + fireworks
-cutBtn.addEventListener("click", () => {
-  const cake = document.querySelector(".cake");
-  cake.classList.add("cut");
+// Confetti effect (continuous)
+const confettiCanvas = document.getElementById("confetti");
+const ctx = confettiCanvas.getContext("2d");
+confettiCanvas.width = window.innerWidth;
+confettiCanvas.height = window.innerHeight;
 
-  // Fireworks start
-  launchFireworks();
-});
-
-// Cake slice animation
-document.head.insertAdjacentHTML("beforeend", `
-<style>
-.cake.cut .layer {
-  animation: slice 1s forwards;
-}
-@keyframes slice {
-  to { transform: translateY(20px) rotate(5deg); }
-}
-</style>
-`);
-
-// Fireworks animation
-let particles = [];
-function launchFireworks() {
-  setInterval(() => {
-    const x = Math.random() * fireworksCanvas.width;
-    const y = Math.random() * fireworksCanvas.height / 2;
-    for (let i = 0; i < 50; i++) {
-      particles.push({
-        x, y,
-        angle: Math.random() * 2 * Math.PI,
-        speed: Math.random() * 5 + 2,
-        radius: Math.random() * 2 + 1,
-        alpha: 1
-      });
-    }
-  }, 500);
-
-  animateFireworks();
-}
-
-function animateFireworks() {
-  ctx.clearRect(0, 0, fireworksCanvas.width, fireworksCanvas.height);
-  particles.forEach((p, i) => {
-    p.x += Math.cos(p.angle) * p.speed;
-    p.y += Math.sin(p.angle) * p.speed;
-    p.alpha -= 0.01;
-
-    ctx.fillStyle = `rgba(255, ${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, ${p.alpha})`;
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.radius, 0, Math.PI*2);
-    ctx.fill();
-
-    if (p.alpha <= 0) particles.splice(i, 1);
+const confetti = [];
+for (let i = 0; i < 200; i++) {
+  confetti.push({
+    x: Math.random() * confettiCanvas.width,
+    y: Math.random() * confettiCanvas.height,
+    r: Math.random() * 6 + 2,
+    d: Math.random() * 200 + 10,
+    color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+    tilt: Math.random() * 10 - 10
   });
-  requestAnimationFrame(animateFireworks);
-}
-// 🎉 Confetti Effect
-const confetti = document.getElementById("confetti");
-confetti.height = window.innerHeight;
-
-const particlesnew = [];
-
-function random(min, max) {
-  return Math.random() * (max - min) + min;
 }
 
-function createParticle() {
-  return {
-    x: random(0, confetti.width),
-    y: random(-confetti.height, 0),
-    size: random(5, 10),
-    color: `hsl(${random(0, 360)}, 100%, 50%)`,
-    speed: random(2, 5),
-    drift: random(-1, 1),
-  };
-}
-
-for (let i = 0; i < 150; i++) {
-  particles.push(createParticle());
-}
-
-function drawParticles() {
-  ctx.clearRect(0, 0, confetti.width, confetti.height);
-  for (let p of particles) {
+function drawConfetti() {
+  ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+  confetti.forEach(c => {
     ctx.beginPath();
-    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-    ctx.fillStyle = p.color;
+    ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2, false);
+    ctx.fillStyle = c.color;
     ctx.fill();
+  });
+  updateConfetti();
+}
 
-    p.y += p.speed;
-    p.x += p.drift;
+function updateConfetti() {
+  confetti.forEach(c => {
+    c.y += Math.cos(c.d) + 1 + c.r / 2;
+    c.x += Math.sin(c.d);
 
-    if (p.y > confetti.height) {
-      p.y = -10;
-      p.x = random(0, confetti.width);
+    if (c.y > confettiCanvas.height) {
+      c.x = Math.random() * confettiCanvas.width;
+      c.y = -10;
     }
-  }
+  });
 }
 
-function animate() {
-  drawParticles();
-  requestAnimationFrame(animate);
+function loop() {
+  drawConfetti();
+  requestAnimationFrame(loop);
 }
-
-animate();
+loop();
